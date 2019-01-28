@@ -2,13 +2,6 @@ import React, { Component } from 'react'
 import OptionComponents from './OptionComponents'
 import "./OptionContainer.css" 
 
-const data = {
-
-}
-
-
-
-
 class OptionContainer extends Component{
     render(){
 
@@ -17,7 +10,7 @@ class OptionContainer extends Component{
 
 
         return (
-            <div className="optionComponents">
+            <div className="optionContainer">
                 <OptionComponents />
                 <OptionComponents />
                 <OptionComponents />
