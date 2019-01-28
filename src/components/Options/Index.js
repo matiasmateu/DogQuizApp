@@ -1,6 +1,6 @@
-import React, { Component} from 'react'
+import React, { Component } from 'react'
 import OptionComponents from './OptionComponents'
-
+import "./OptionContainer.css" 
 
 const data = {
 
@@ -9,7 +9,7 @@ const data = {
 
 
 
-class OptionContainer extends Components{
+class OptionContainer extends Component{
     render(){
 
 
@@ -17,7 +17,7 @@ class OptionContainer extends Components{
 
 
         return (
-            <div>
+            <div className="optionComponents">
                 <OptionComponents />
                 <OptionComponents />
                 <OptionComponents />
@@ -27,3 +27,5 @@ class OptionContainer extends Components{
         
     }
 }
+
+export default OptionContainer

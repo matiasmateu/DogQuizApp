@@ -1,10 +1,10 @@
 import React, { Component} from 'react'
 
-class OptionComponents extends Components{
+class OptionComponents extends Component{
     render(){
 
         return(
-            <div>
+            <div className="optionComponents">
                 <p>German shepard</p>
             </div>
         )
@@ -12,3 +12,5 @@ class OptionComponents extends Components{
 
     }
 }
+
+export default OptionComponents
