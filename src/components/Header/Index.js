@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import ScoreBoard from './ScoreBoard'
-import '../css/HeaderContainer.css'
+import './HeaderContainer.css'
 
 class HeaderContainer extends Component{
     render(){
