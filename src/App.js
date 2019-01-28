@@ -5,9 +5,9 @@ import GameContainer from './components/GameContainer'
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      
         <GameContainer />
-      </div>
+      
     );
   }
 }
