@@ -7,11 +7,9 @@ class ScoreBoard extends Component{
         return (
         <div className="score-board">
             <ul className="score-container">
-                <li><h4>LOGO</h4></li>
-                <li><div className="score-info">
-                    <h4>Score:</h4>
-                    <span>3</span>
-                </div></li>
+                <li class="logo"><h4>LOGO</h4></li>
+                <li>Score:</li>
+                <li>12</li>
             </ul>
         </div>)
     }

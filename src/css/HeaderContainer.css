@@ -1,8 +1,18 @@
 header{
     width: 100%;
-    background-color: gray;
+    border: solid 1px black;
+}
+
+
+.score-container{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-flow: row;
 }
 
 .score-container li{
-    display: inline;
+    padding: 24px;
 }
