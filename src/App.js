@@ -9,9 +9,7 @@ class App extends Component {
       <div className="App">
         <GameContainer />
       </div>
-      <div>
-        <OptionContainer />
-      </div>
+      
     );
   }
 }

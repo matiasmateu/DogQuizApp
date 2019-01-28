@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { OpionComponents} from './OptionComponents'
+import OptionComponents from './OptionComponents'
 
 class OptionContainer extends Component{
     render(){ 
         return (
         <div>
-            <OpionComponents />
-            <OpionComponents />
-            <OpionComponents />
+            <OptionComponents />
+            <OptionComponents />
+            <OptionComponents />
         </div>
         
         
