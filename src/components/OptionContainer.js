@@ -4,7 +4,7 @@ import OptionComponents from './OptionComponents'
 class OptionContainer extends Component{
     render(){ 
         return (
-        <div>
+        <div className="optionsContainer">
             <OptionComponents />
             <OptionComponents />
             <OptionComponents />

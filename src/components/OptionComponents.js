@@ -5,7 +5,7 @@ class OptionComponents extends Component{
     render(){ 
         return (
         <div>
-            <p>German Shepard</p>
+            <p className="optionsBreed">German Shepard</p>
         </div>
         
         
