@@ -55,7 +55,7 @@ class OptionContainer extends Component{
                 this.props.levelUp();
                 this.props.getNewQuestions(this.props.gameStat.level, 5);
                 this.props.scoreUp()
-
+                alert('Ready for the next level? More dogs!')
             } else {
                 this.props.scoreUp();
                 this.props.counterUp();
