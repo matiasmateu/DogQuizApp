@@ -63,8 +63,11 @@ class OptionContainer extends Component{
             
             
         }
-        this.props.nextQuestion()
-        // I SHOULD HAVE IN COUNT THAT MIGHT NOT BE ANOTHER QUESTION....
+        if (this.props.questionList.length === 0){
+            alert("GAME OVER LOOSER")
+        }else{
+            this.props.nextQuestion()
+        }
     }
 
     render(){ 
@@ -83,7 +86,8 @@ const mapStateToProps = (state) => {
         breeds : state.breeds,
         currentAnswer : state.questions.currentQuestion.correctAnswer,
         currentQuestion : state.questions.currentQuestion.question,
-        gameStat: state.gameStat
+        gameStat: state.gameStat,
+        questionList : state.questions.questionList
     }
 }
 
