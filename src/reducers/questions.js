@@ -15,7 +15,10 @@ const initialState = {
       correctAnswer: "Cockapoo"
     }
   ],
-  currentQuestion: {}
+  currentQuestion: {
+    question: "https://images.dog.ceo/breeds/cockapoo/bubbles2.jpg",
+    correctAnswer: "Cockapoo"
+  }
 }
 
 export default (state = initialState, action = {}) => {

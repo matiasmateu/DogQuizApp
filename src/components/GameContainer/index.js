@@ -31,14 +31,13 @@ class GameContainer extends Component{
 
         const level = this.props.gameStat.level + 1
         const totalBreed = level * 3
-        
-        console.log(level, '<===LEVELL')
+    
 
         axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
             // get only amount of totalBreed
             const breeds = Object.keys(result.data.message).slice(0, totalBreed)
             const questions = await this.getQuestionList(breeds)
-            console.log(questions, 'QUESTIONSS')
+
         })
 
 
@@ -90,7 +89,7 @@ class GameContainer extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.gameStat.level)
+
     return {
         currentQuestion: state.questions.currentQuestion,
         gameStat: state.gameStat
