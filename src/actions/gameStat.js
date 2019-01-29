@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export const LEVEL_UP = 'LEVEL_UP'
 
 export const levelUp = () => {

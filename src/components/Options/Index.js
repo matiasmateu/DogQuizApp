@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import OptionComponents from './OptionComponents'
 import { connect } from 'react-redux'
-import { resetCounter, scoreUp, counterUp, levelUp, getNewQuestions } from '../../actions/gameStat'
+import { resetCounter, scoreUp, counterUp, levelUp } from '../../actions/gameStat'
+import { getNewQuestions } from '../../actions/questions'
 
 
 class OptionContainer extends Component{
