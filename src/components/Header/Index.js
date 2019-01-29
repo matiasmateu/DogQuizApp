@@ -1,14 +1,24 @@
 import React, {Component} from 'react'
 import ScoreBoard from './ScoreBoard'
 import './HeaderContainer.css'
+import { connect } from 'react-redux'
 
 class HeaderContainer extends Component{
     render(){
+        
         return (
+            
         <div className="container">
-             <ScoreBoard />
+             <ScoreBoard stats={this.props.stats} />
         </div>
     )}
 }
 
-export default HeaderContainer
+
+const mapStateToProps = (state) => {
+      return {
+      stats: state.gameStat
+    }
+  }
+  
+export default connect(mapStateToProps)(HeaderContainer)

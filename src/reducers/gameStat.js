@@ -1,7 +1,7 @@
 import { LEVEL_UP } from '../actions/gameStat'
 
 const initialState = {
-  score: 0,
+  score: 5,
   level: 0,
   counter: 0
 }
@@ -14,3 +14,4 @@ export default (state= initialState, action={}) => {
       return state
   }
 }
+
