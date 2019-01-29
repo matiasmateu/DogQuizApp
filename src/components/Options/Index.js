@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import OptionComponents from './OptionComponents'
 import { connect } from 'react-redux'
 import { resetCounter, scoreUp, counterUp, levelUp } from '../../actions/gameStat'
-import { getNewQuestions } from '../../actions/questions'
+import { getNewQuestions,nextQuestion } from '../../actions/questions'
 
 
 class OptionContainer extends Component{
@@ -18,7 +18,7 @@ class OptionContainer extends Component{
             incorrect1 = this.props.breeds[randomIndex1]
             let randomIndex2 = Math.floor(Math.random() * (this.props.breeds.length))
             incorrect2 = this.props.breeds[randomIndex2]
-        }while((incorrect1===incorrect2)||(incorrect1===this.props.currentAnswer)||(incorrect2===this.props.currentAnswer))
+        }while((incorrect1.toUpperCase()===incorrect2.toUpperCase())||(incorrect1.toUpperCase()===this.props.currentAnswer.toUpperCase())||(incorrect2.toUpperCase()===this.props.currentAnswer.toUpperCase()))
         answers.push(incorrect1,incorrect2)
         return this.shuffle(answers)
     }
@@ -54,14 +54,17 @@ class OptionContainer extends Component{
                 this.props.resetCounter();
                 this.props.levelUp();
                 this.props.getNewQuestions(this.props.gameStat.level, 5);
+                this.props.scoreUp()
 
             } else {
                 this.props.scoreUp();
                 this.props.counterUp();
             }
-
+            
+            
         }
-
+        this.props.nextQuestion()
+        // I SHOULD HAVE IN COUNT THAT MIGHT NOT BE ANOTHER QUESTION....
     }
 
     render(){ 
@@ -84,4 +87,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, getNewQuestions })(OptionContainer)
+export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, getNewQuestions,nextQuestion })(OptionContainer)

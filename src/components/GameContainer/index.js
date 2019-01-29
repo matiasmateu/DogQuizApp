@@ -14,6 +14,7 @@ class GameContainer extends Component{
 
     componentDidMount() {
         this.props.getNewQuestions(this.props.gameStat.level, 5)
+
     }
 
     onNextQuestion = () => {
