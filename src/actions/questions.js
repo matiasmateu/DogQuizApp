@@ -2,14 +2,7 @@ import axios from 'axios'
 
 export const CHECK_ANSWER = 'CHECK_ANSWER'
 export const SET_QUESTIONS = 'SET_QUESTIONS'
-
-export const checkAnswer = () => {
-  // Will take a value as argument
-  return {
-    type: CHECK_ANSWER,
-    payload: {}
-  }
-}
+export const NEXT_QUESTION = 'NEXT_QUESTION'
 
 export const setQuestionList = (questions) => {
   return {
@@ -18,22 +11,39 @@ export const setQuestionList = (questions) => {
   }
 }
 
-export const getQuestionList = (breeds, maxQuestionPerBreed) =>{
+export const nextQuestion = () => {
+  return {
+    type: NEXT_QUESTION
+  }
+}
+
+export const getNewQuestions = (level, maxQuestionPerBreed) =>{
 
   return async (dispatch) => {
-    let questions = [];
 
-    for(let x = 0; x < breeds.length; x++) {
-      const images = await fetchImage(breeds[x])
-      for(let y = 0; y < maxQuestionPerBreed; y++) {
-        questions.push({
-          question: images[y],
-          answer: breeds[x]
-        })
-      }
-    }
+    const currentLevel = level + 1
+    const totalBreed = currentLevel * 3
 
-    dispatch(setQuestionList(questions))
+    await axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
+        const breeds = Object.keys(result.data.message).slice(0, totalBreed)
+
+        let questions = [];
+
+        for(let x = 0; x < breeds.length; x++) {
+          const images = await fetchImage(breeds[x])
+
+          for(let y = 0; y < maxQuestionPerBreed; y++) {
+            questions.push({
+              question: images[y],
+              correctAnswer: breeds[x]
+            })
+          }
+
+        }
+
+        dispatch(setQuestionList(questions))
+    })
+
   }
 }
 

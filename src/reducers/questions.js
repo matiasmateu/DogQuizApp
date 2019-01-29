@@ -1,4 +1,4 @@
-import { CHECK_ANSWER, SET_QUESTIONS } from '../actions/questions'
+import { CHECK_ANSWER, SET_QUESTIONS, NEXT_QUESTION } from '../actions/questions'
 
 const initialState = {
   questionList: [],
@@ -14,10 +14,9 @@ export default (state = initialState, action = {}) => {
       return state
     case SET_QUESTIONS:
       return { ...state, questionList: [...action.payload] }
-    case 'PICK_QUESTION':
-      // Pop a new question from questionList
-      // Change current question to the popped one
-      return state
+    case NEXT_QUESTION:
+      console.log(state.questionList.slice(1), '<<=== NEXT QUESTION')
+      return { questionList: state.questionList.slice(1), currentQuestion: {...state.questionList[0]}}
     default:
     return state
   }

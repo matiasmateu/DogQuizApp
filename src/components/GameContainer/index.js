@@ -3,41 +3,26 @@ import axios from 'axios'
 import Game from './Game';
 import { connect } from 'react-redux'
 import { levelUp } from '../../actions/gameStat'
-import { getQuestionList } from '../../actions/questions'
+import { getNewQuestions, nextQuestion } from '../../actions/questions'
 
 
 class GameContainer extends Component{
 
     state = {
-        breeds: null,
         maxQuestionPerBreed: 3
     }
 
     componentDidMount() {
-        this.levelUp()
+        this.props.getNewQuestions(this.props.gameStat.level, 5)
     }
 
-    levelUp = async () => {
-
-        const level = this.props.gameStat.level + 1
-        const totalBreed = level * 3
-
-        await axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
-            const breeds = Object.keys(result.data.message).slice(0, totalBreed)
-            this.props.getQuestionList(breeds, this.state.maxQuestionPerBreed)
-        })
-
-        this.props.levelUp()
+    onNextQuestion = () => {
+        this.props.nextQuestion()
     }
-
-
-
-    
 
     render(){ 
-        return ( 
-        <Game/>
-    )}
+        return (<Game {...this.props.currentQuestion} handleNextQuestion={this.onNextQuestion}/>)
+    }
 }
 
 const mapStateToProps = (state) => {
@@ -47,4 +32,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { levelUp,  getQuestionList})(GameContainer)
+export default connect(mapStateToProps, { levelUp,  getNewQuestions, nextQuestion })(GameContainer)
