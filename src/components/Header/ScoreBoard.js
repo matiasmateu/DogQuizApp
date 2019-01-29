@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import WinnerCount from './WinnerCount';
 
 class ScoreBoard extends Component{
     
@@ -6,14 +7,12 @@ class ScoreBoard extends Component{
         console.log(this.props.stats.score)
         return (
         <div className="score-board">
-            <ul className="score-container">
-                <li class="logo"><h4>LOGO</h4></li>
+            <ul>
                 <li>Score:{this.props.stats.score}</li>
-                
                 <li>Level:{this.props.stats.level}</li>
-                
-                 <li>Win counter:{this.props.stats.counter}</li>
-                
+                <li>
+                    <WinnerCount total={this.props.stats.counter}/>
+                </li>
             </ul>
         </div>)
     }
