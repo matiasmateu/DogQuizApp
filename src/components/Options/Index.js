@@ -41,14 +41,18 @@ class OptionContainer extends Component{
         }
         return a
     }
+    
+    onclick (value){
+    console.log(value)
+    }
 
     render(){ 
         let answers = this.generateOptions();
         return (  
         <div className="optionsContainer">
-                <OptionComponents breed={answers[0]}/>
-                <OptionComponents breed={answers[1]}/>
-                <OptionComponents breed={answers[2]}/>
+                <OptionComponents onclick={() => this.onclick(answers[0])} breed={answers[0]}/>
+                <OptionComponents onclick={() => this.onclick(answers[1])} breed={answers[1]}/>
+                <OptionComponents onclick={() => this.onclick(answers[2])} breed={answers[2]}/>
         </div>
     )}
 }
