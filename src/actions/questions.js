@@ -17,24 +17,33 @@ export const nextQuestion = () => {
   }
 }
 
-export const getQuestionList = (breeds, maxQuestionPerBreed) =>{
+export const getNewQuestions = (level, maxQuestionPerBreed) =>{
 
   return async (dispatch) => {
-    let questions = [];
 
-    for(let x = 0; x < breeds.length; x++) {
-      const images = await fetchImage(breeds[x])
+    const currentLevel = level + 1
+    const totalBreed = currentLevel * 3
 
-      for(let y = 0; y < maxQuestionPerBreed; y++) {
-        questions.push({
-          question: images[y],
-          correctAnswer: breeds[x]
-        })
-      }
+    await axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
+        const breeds = Object.keys(result.data.message).slice(0, totalBreed)
 
-    }
+        let questions = [];
 
-    dispatch(setQuestionList(questions))
+        for(let x = 0; x < breeds.length; x++) {
+          const images = await fetchImage(breeds[x])
+
+          for(let y = 0; y < maxQuestionPerBreed; y++) {
+            questions.push({
+              question: images[y],
+              correctAnswer: breeds[x]
+            })
+          }
+
+        }
+
+        dispatch(setQuestionList(questions))
+    })
+
   }
 }
 
