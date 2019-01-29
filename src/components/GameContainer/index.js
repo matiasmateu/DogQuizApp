@@ -24,6 +24,7 @@ class GameContainer extends Component{
 
         await axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
             const breeds = Object.keys(result.data.message).slice(0, totalBreed)
+            const questions = await this.getQuestionList(breeds)
             this.props.getQuestionList(breeds, this.state.maxQuestionPerBreed)
         })
 
@@ -42,11 +43,9 @@ class GameContainer extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.questions.questionList)
     return {
         currentQuestion: state.questions.currentQuestion,
         gameStat: state.gameStat
-
     }
 }
 

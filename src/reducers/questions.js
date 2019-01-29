@@ -2,7 +2,10 @@ import { CHECK_ANSWER, SET_QUESTIONS } from '../actions/questions'
 
 const initialState = {
   questionList: [],
-  currentQuestion: {}
+  currentQuestion: {
+    question: "https://images.dog.ceo/breeds/cockapoo/bubbles2.jpg",
+    correctAnswer: "Cockapoo"
+  }
 }
 
 export default (state = initialState, action = {}) => {
