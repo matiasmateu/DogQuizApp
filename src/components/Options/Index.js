@@ -52,7 +52,7 @@ class OptionContainer extends Component{
                 console.log()
                 this.props.resetCounter();
                 this.props.levelUp();
-                this.props.getNewQuestions();
+                this.props.getNewQuestions(this.props.gameStat.level, 5);
 
             } else {
                 this.props.scoreUp();
