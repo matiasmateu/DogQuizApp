@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import OptionComponents from './OptionComponents'
 import { connect } from 'react-redux'
+import { resetCounter, scoreUp, counterUp, levelUp, getNewQuestions } from '../../actions/gameStat'
+
 
 class OptionContainer extends Component{
-
-    checkAnswer = () => {
-        // True => update score
-        // False => 
-        // Get next question
-    }
-
     /**
     * Returns an array of 3 options with random order. It includes the correct Answer
     */
@@ -41,14 +36,40 @@ class OptionContainer extends Component{
         }
         return a
     }
+    
+    
+
+
+
+    checkAnswer =(value)=>{
+        
+        if( value !== this.props.currentAnswer){
+            alert('This is not the right answer! The right answer is ' + this.props.currentAnswer)
+            this.props.resetCounter()
+        } else {
+            alert('Well done, the righ answer is ' + this.props.currentAnswer)
+            if( this.props.gameStat.counter === 3){
+                console.log()
+                this.props.resetCounter();
+                this.props.levelUp();
+                this.props.getNewQuestions(this.props.gameStat.level, 5);
+
+            } else {
+                this.props.scoreUp();
+                this.props.counterUp();
+            }
+
+        }
+
+    }
 
     render(){ 
         let answers = this.generateOptions();
         return (  
         <div className="optionsContainer">
-                <OptionComponents breed={answers[0]}/>
-                <OptionComponents breed={answers[1]}/>
-                <OptionComponents breed={answers[2]}/>
+                <OptionComponents onclick={() => this.checkAnswer(answers[0])} breed={answers[0]}/>
+                <OptionComponents onclick={() => this.checkAnswer(answers[1])} breed={answers[1]}/>
+                <OptionComponents onclick={() => this.checkAnswer(answers[2])} breed={answers[2]}/>
         </div>
     )}
 }
@@ -56,8 +77,10 @@ class OptionContainer extends Component{
 const mapStateToProps = (state) => {
     return {
         breeds : state.breeds,
-        currentAnswer : state.questions.currentQuestion.correctAnswer
+        currentAnswer : state.questions.currentQuestion.correctAnswer,
+        currentQuestion : state.questions.currentQuestion.question,
+        gameStat: state.gameStat
     }
 }
 
-export default connect(mapStateToProps)(OptionContainer)
+export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, getNewQuestions })(OptionContainer)
