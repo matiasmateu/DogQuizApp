@@ -3,13 +3,12 @@ import axios from 'axios'
 import Game from './Game';
 import { connect } from 'react-redux'
 import { levelUp } from '../../actions/gameStat'
-import { getQuestionList } from '../../actions/questions'
+import { getQuestionList, nextQuestion } from '../../actions/questions'
 
 
 class GameContainer extends Component{
 
     state = {
-        breeds: null,
         maxQuestionPerBreed: 3
     }
 
@@ -30,14 +29,13 @@ class GameContainer extends Component{
         this.props.levelUp()
     }
 
-
-
-    
+    onNextQuestion = () => {
+        this.props.nextQuestion()
+    }
 
     render(){ 
-        return ( 
-        <Game/>
-    )}
+        return (<Game {...this.props.currentQuestion} handleNextQuestion={this.onNextQuestion}/>)
+    }
 }
 
 const mapStateToProps = (state) => {
@@ -47,4 +45,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { levelUp,  getQuestionList})(GameContainer)
+export default connect(mapStateToProps, { levelUp,  getQuestionList, nextQuestion })(GameContainer)
