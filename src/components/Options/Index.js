@@ -5,13 +5,6 @@ import { resetCounter, scoreUp, counterUp, levelUp } from '../../actions/gameSta
 
 
 class OptionContainer extends Component{
-
-    checkAnswer = () => {
-        // True => update score
-        // False => 
-        // Get next question
-    }
-
     /**
     * Returns an array of 3 options with random order. It includes the correct Answer
     */
@@ -44,22 +37,17 @@ class OptionContainer extends Component{
         return a
     }
     
-    showAnswer() {
-        // show this.props.currentAnswer
-        // show next-question-button
-    }
+    
 
 
 
     checkAnswer =(value)=>{
-    console.log(this.props.currentAnswer)
-    console.log(this.props.currentQuestion)
-    console.log(value)
-        // this.showAnswer();
         
         if( value !== this.props.currentAnswer){
-           this.props.resetCounter()
+            alert('This is not the right answer! The right answer is ' + this.props.currentAnswer)
+            this.props.resetCounter()
         } else {
+            alert('Well done, the righ answer is ' + this.props.currentAnswer)
             if( this.props.gameStat.counter === 3){
                 console.log()
                 this.props.resetCounter();
