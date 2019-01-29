@@ -3,6 +3,7 @@ import axios from 'axios'
 import Game from './Game';
 import { connect } from 'react-redux'
 import { levelUp } from '../../actions/gameStat'
+import { getQuestionList } from '../../actions/questions'
 
 
 class GameContainer extends Component{
@@ -13,73 +14,24 @@ class GameContainer extends Component{
     }
 
     componentDidMount() {
-
-        
         this.levelUp()
-
-        setTimeout(() => {
-            this.levelUp()
-        }, 2000);
-        
-
     }
 
-    levelUp = () => {
-
-
-        
+    levelUp = async () => {
 
         const level = this.props.gameStat.level + 1
         const totalBreed = level * 3
-        
-        console.log(level, '<===LEVELL')
 
-        axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
-            // get only amount of totalBreed
+        await axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
             const breeds = Object.keys(result.data.message).slice(0, totalBreed)
-            const questions = await this.getQuestionList(breeds)
-            console.log(questions, 'QUESTIONSS')
+            this.props.getQuestionList(breeds, this.state.maxQuestionPerBreed)
         })
 
 
-
-
-
-        this.props.levelUp()
+        // this.props.levelUp()
     }
 
-    getQuestionList = (breeds) => {
-        return new Promise(async (resolve, reject) => {
-            const questions = [];
 
-            await breeds.map(async (breed) => {
-                const images = await this.fetchImage(breed)
-
-                for(let i =0; i < this.state.maxQuestionPerBreed; i++) {
-                    questions.push({
-                        question: images[i],
-                        answer: breed
-                    })
-                }
-            })
-
-            resolve(questions)
-        })
-        
-
-        
-
-        
-    }
-
-    fetchImage =  (breed) => {
-        return new Promise((resolve) => {
-                axios.get(`https://dog.ceo/api/breed/${breed}/images`).then((result) => {
-                resolve(result.data.message)
-            })
-        })
-        
-    }
 
     
 
@@ -90,11 +42,12 @@ class GameContainer extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.gameStat.level)
+    console.log(state.questions.questionList)
     return {
         currentQuestion: state.questions.currentQuestion,
         gameStat: state.gameStat
+
     }
 }
 
-export default connect(mapStateToProps, { levelUp })(GameContainer)
+export default connect(mapStateToProps, { levelUp,  getQuestionList})(GameContainer)
