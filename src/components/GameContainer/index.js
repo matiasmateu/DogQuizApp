@@ -13,12 +13,7 @@ class GameContainer extends Component{
     }
 
     componentDidMount() {
-        this.levelUp()
-    }
-
-    levelUp = async () => {
         this.props.getNewQuestions(this.props.gameStat.level, 5)
-        this.props.levelUp()
     }
 
     onNextQuestion = () => {
