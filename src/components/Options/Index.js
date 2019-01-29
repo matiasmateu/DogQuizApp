@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import OptionComponents from './OptionComponents'
 import { connect } from 'react-redux'
-import { resetCounter, scoreUp, counterUp, levelUp } from '../../actions/gameStat'
+import { resetCounter, scoreUp, counterUp, levelUp, getNewQuestions } from '../../actions/gameStat'
 
 
 class OptionContainer extends Component{
@@ -52,6 +52,7 @@ class OptionContainer extends Component{
                 console.log()
                 this.props.resetCounter();
                 this.props.levelUp();
+                this.props.getNewQuestions();
 
             } else {
                 this.props.scoreUp();
@@ -82,4 +83,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp })(OptionContainer)
+export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, getNewQuestions })(OptionContainer)
