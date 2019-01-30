@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 class HeaderContainer extends Component{
     render(){
-        
+        console.log(this.props.stats, '<<<<====STATS INSIDE HEADER CONTAINER')
         return (
             
         <header className="header">

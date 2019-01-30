@@ -3,6 +3,7 @@ import CardPicture from './CardPicture'
 import HeaderContainer from '../Header/Index'
 import './game.css'
 import OptionContainer from '../Options/Index'
+import Modal from '../Modal';
 
 
 export default (props) => {
@@ -11,6 +12,7 @@ export default (props) => {
         <HeaderContainer />
         <CardPicture dogPicture={props.question}/>
         <OptionContainer />
+        <Modal/>
     </section> 
   )
 }

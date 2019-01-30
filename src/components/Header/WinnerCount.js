@@ -9,7 +9,6 @@ export default (props) => {
 }
 
 const displayFires = (number) => {
-  console.log(number, '<<<=== WINNING')
   switch(number) {
     case 1:
     return(
