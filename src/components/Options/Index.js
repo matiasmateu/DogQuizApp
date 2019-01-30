@@ -45,24 +45,24 @@ class OptionContainer extends Component{
     */
     checkAnswer =(value)=>{
         if( value !== this.props.currentAnswer){
-            this.props.showAlert("fas fa-times-circle","That's not the correct answer","Next Question",this.props.nextQuestion,true)
+            this.props.showAlert("fas fa-times-circle","That's not the correct answer","Next Question",this.props.nextQuestion,true,true)
             this.props.loseCounterUp();
             this.props.resetCounter()
         } else {
-            this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true)
+            this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
             if( this.props.gameStat.counter === 3){
                 this.props.getNewQuestions(this.props.gameStat.level, 5);
                 this.props.resetCounter();
                 this.props.levelUp();
                 this.props.scoreUp()
-                this.props.showAlert("fas fa-arrow-circle-up",`Level:${this.props.gameStat.level+1}`,"Next Question",this.props.nextQuestion,true)
+                this.props.showAlert("fas fa-arrow-circle-up",`Level:${this.props.gameStat.level+1}`,"Next Question",this.props.nextQuestion,true,true)
             } else {
                 this.props.scoreUp();
                 this.props.counterUp();
             }
         }
         if (this.props.questionList.length === 0){
-            this.props.showAlert("fas fa-skull-crossbones","GAME OVER!","Restart Game",this.props.resetGameStats,true)
+            this.props.showAlert("fas fa-skull-crossbones","GAME OVER!","Restart Game",this.props.resetGameStats,true,false)
             this.props.getNewQuestions(0, 5)
         }
     }

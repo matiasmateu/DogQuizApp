@@ -5,7 +5,8 @@ const initialState = {
     message:"That's not the correct answer!",
     buttonText:"Next Question",
     buttonAction:"NextQuestion",
-    display:false
+    display:false,
+    loader:false
 
 }
 
