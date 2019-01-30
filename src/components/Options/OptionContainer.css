@@ -1,0 +1,11 @@
+.optionContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.optionComponents {
+    border: solid 1px black;
+    border-radius: 5px;
+    
+}

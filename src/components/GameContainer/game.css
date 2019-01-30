@@ -1,0 +1,14 @@
+.card-picture{
+  margin:auto;
+  text-align: center;
+  display: flex;
+  margin-top:72px;
+  margin-bottom:72px;
+}
+
+.main-image{
+  margin:auto;
+  height: 300px;
+  width: 80%;
+  margin: 1rem auto 0 auto;
+}
