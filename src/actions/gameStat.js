@@ -43,6 +43,14 @@ export const loseCounterUp = () => {
   }
 }
 
+export const RESET_GAME = 'RESET_GAME'
+
+export const resetGameStats = () => {
+  return {
+    type: RESET_GAME
+
+  }
+}
 
 
 

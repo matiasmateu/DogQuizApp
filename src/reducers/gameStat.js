@@ -1,4 +1,4 @@
-import { LEVEL_UP, RESET_COUNTER, SCORE_UP, COUNTER_UP, LOSE_COUNTER_UP } from '../actions/gameStat'
+import { LEVEL_UP, RESET_COUNTER, SCORE_UP, COUNTER_UP, LOSE_COUNTER_UP, RESET_GAME } from '../actions/gameStat'
 
 const initialState = {
   score: 0,
@@ -21,6 +21,8 @@ export default (state= initialState, action={}) => {
       return {...state, winCounter: state.winCounter +1}
     case LOSE_COUNTER_UP:
       return {...state, loseCounter: state.loseCounter +1}
+    case RESET_GAME:
+      return {...initialState}
       default:
       return state
   }
