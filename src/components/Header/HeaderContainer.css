@@ -1,18 +1,50 @@
-header{
-    width: 100%;
-    border: solid 1px black;
-}
 
+@import url('https://fonts.googleapis.com/css?family=Righteous');
 
-.score-container{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+.header {
     display: flex;
-    flex-flow: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 5rem;
+    background-color: #E7E6F7;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
-.score-container li{
-    padding: 24px;
+.logo {
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo p {
+    margin: 0;
+    padding-left: 10px;
+    font-family: 'Righteous';
+    font-size: 1.3rem;
+}
+
+.logo img {
+    width: 40px;
+}
+
+.score-board {
+    display: flex;
+    align-items: center;
+    /* width: 60%; */
+}
+
+.score-board ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    
+}
+
+.score-board ul li {
+    margin-left: 1.5rem;
 }

@@ -8,9 +8,16 @@ class HeaderContainer extends Component{
         
         return (
             
-        <div className="container">
-             <ScoreBoard stats={this.props.stats} />
-        </div>
+        <header className="header">
+            <div className="logo">
+                <img src='./logo.png' alt='logo' />
+                <p>PawQuiz</p>
+            </div>
+            <div className='score-container'>
+                <ScoreBoard stats={this.props.stats} />
+            </div>
+             
+        </header>
     )}
 }
 

@@ -48,14 +48,14 @@ class OptionContainer extends Component{
             alert('This is not the right answer! The right answer is ' + this.props.currentAnswer)
             this.props.resetCounter()
         } else {
-            alert('Well done, the righ answer is ' + this.props.currentAnswer)
+            alert('Well done, the right answer is ' + this.props.currentAnswer)
             if( this.props.gameStat.counter === 3){
                 console.log()
                 this.props.resetCounter();
                 this.props.levelUp();
                 this.props.getNewQuestions(this.props.gameStat.level, 5);
                 this.props.scoreUp()
-
+                alert('Ready for the next level? More dogs!')
             } else {
                 this.props.scoreUp();
                 this.props.counterUp();
