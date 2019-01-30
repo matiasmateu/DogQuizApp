@@ -40,8 +40,6 @@ class OptionContainer extends Component{
     }
     
 
-
-
     checkAnswer =(value)=>{
         
         if( value !== this.props.currentAnswer){
@@ -65,12 +63,9 @@ class OptionContainer extends Component{
             
         }
         if (this.props.questionList.length === 0){
-            alert("GAME OVER LOOSER")
-            this.props.resetGameStats()
+            this.props.showAlert("fas fa-skull-crossbones","GAME OVER!","Restart Game",this.props.resetGameStats,true)
             this.props.getNewQuestions(0, 5)
 
-        }else{
-            this.props.nextQuestion()
         }
     }
 
