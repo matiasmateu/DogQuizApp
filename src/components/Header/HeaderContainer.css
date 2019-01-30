@@ -6,7 +6,7 @@
     justify-content: space-around;
     align-items: center;
     height: 5rem;
-    background-color: #E7E6F7;
+    background: linear-gradient(to left, #EB3349, #F45C43);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -24,6 +24,7 @@
     padding-left: 10px;
     font-family: 'Righteous';
     font-size: 1.3rem;
+    color: white;
 }
 
 .logo img {
@@ -33,6 +34,7 @@
 .score-board {
     display: flex;
     align-items: center;
+    color: white;
 }
 
 .score-board ul {
@@ -45,7 +47,7 @@
 }
 
 .score-board ul li {
-    margin-left: 1.5rem;
+    margin: 0 0.5rem;
 }
 
 .fa-fire {
