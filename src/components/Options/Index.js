@@ -39,9 +39,11 @@ class OptionContainer extends Component{
         return a
     }
     
-
+    /**
+    * Game Logic
+    * @value {string} the text of the button pressed
+    */
     checkAnswer =(value)=>{
-        
         if( value !== this.props.currentAnswer){
             this.props.showAlert("fas fa-times-circle","That's not the correct answer","Next Question",this.props.nextQuestion,true)
             this.props.loseCounterUp();
@@ -49,23 +51,19 @@ class OptionContainer extends Component{
         } else {
             this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true)
             if( this.props.gameStat.counter === 3){
-                console.log()
+                this.props.getNewQuestions(this.props.gameStat.level, 5);
                 this.props.resetCounter();
                 this.props.levelUp();
-                this.props.getNewQuestions(this.props.gameStat.level, 5);
                 this.props.scoreUp()
-                alert('Ready for the next level? More dogs!')
+                this.props.showAlert("fas fa-arrow-circle-up",`Level:${this.props.gameStat.level+1}`,"Next Question",this.props.nextQuestion,true)
             } else {
                 this.props.scoreUp();
                 this.props.counterUp();
             }
-            
-            
         }
         if (this.props.questionList.length === 0){
             this.props.showAlert("fas fa-skull-crossbones","GAME OVER!","Restart Game",this.props.resetGameStats,true)
             this.props.getNewQuestions(0, 5)
-
         }
     }
 
