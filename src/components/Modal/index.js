@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Modal from 'react-modal';
 import {connect} from 'react-redux'
 import {hideAlert} from '../../actions/message'
+import './modal.css'
 
 const customStyles = {
   content : {
@@ -12,11 +13,12 @@ const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     textAlign            : 'center'
+    
   }
-};
+}
+
 
 class MessageModal extends Component {
-
   state = {
     modalIsOpen: false
   }
@@ -44,7 +46,7 @@ class MessageModal extends Component {
           contentLabel="Example Modal"
           style={customStyles}
         >
-          <i className={this.props.message.icon}></i>
+          <i className={this.props.message.icon+" icon"}></i>
           <h2>{this.props.message.message}</h2>
           <button onClick={this.clickHandler}>{this.props.message.buttonText}</button>
   
