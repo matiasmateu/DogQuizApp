@@ -4,6 +4,7 @@ import arrayShuffle from '../tools/ArrayShuffle'
 export const CHECK_ANSWER = 'CHECK_ANSWER'
 export const SET_QUESTIONS = 'SET_QUESTIONS'
 export const NEXT_QUESTION = 'NEXT_QUESTION'
+export const UPDATE_BREEDS = 'UPDATE_BREEDS'
 
 export const setQuestionList = (questions) => {
   return {
@@ -18,6 +19,13 @@ export const nextQuestion = () => {
   }
 }
 
+export const updateBreeds = (breeds) => {
+  return {
+    type: UPDATE_BREEDS,
+    payload: breeds
+  }
+}
+
 export const getNewQuestions = (level, maxQuestionPerBreed) =>{
 
   return async (dispatch) => {
@@ -28,6 +36,7 @@ export const getNewQuestions = (level, maxQuestionPerBreed) =>{
     await axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
         const breeds = arrayShuffle(Object.keys(result.data.message)).slice(0, totalBreed)
 
+        dispatch(updateBreeds(breeds))
         let questions = [];
 
         for(let x = 0; x < breeds.length; x++) {
