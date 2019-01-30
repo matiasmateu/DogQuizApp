@@ -13,12 +13,8 @@ class ScoreBoard extends Component{
             <ul>
                 <li>Score: {this.props.stats.score}</li>
                 <li>Level: {this.props.stats.level}</li>
-                <li><i class="fas fa-thumbs-up"></i>{percentage || 0}% </li>
-                <li>
-                    <WinnerCount total={this.props.stats.counter} /> 
-                   
-                </li>
-                
+                <li><i class="fas fa-thumbs-up"></i> {percentage || 0} % </li>
+                <li><WinnerCount total={this.props.stats.counter} /></li>
             </ul>
         </div>)
     }

@@ -2,8 +2,8 @@ import { LEVEL_UP, RESET_COUNTER, SCORE_UP, COUNTER_UP, LOSE_COUNTER_UP, RESET_G
 
 const initialState = {
   score: 0,
-  loses: 0,
   level: 0,
+  counter: 0,
   winCounter: 0,
   loseCounter: 0,
   // winPercentage: winCounter / loseCounter;
@@ -18,7 +18,7 @@ export default (state= initialState, action={}) => {
     case SCORE_UP:
       return {...state, score: state.score+1}
     case COUNTER_UP:
-      return {...state, winCounter: state.winCounter +1}
+      return {...state, winCounter: state.winCounter +1, counter: state.counter + 1}
     case LOSE_COUNTER_UP:
       return {...state, loseCounter: state.loseCounter +1}
     case RESET_GAME:
