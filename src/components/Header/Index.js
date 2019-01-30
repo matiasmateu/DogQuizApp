@@ -10,7 +10,7 @@ class HeaderContainer extends Component{
             
         <header className="header">
             <div className="logo">
-                <img src='./logo.png' alt='logo' />
+                <img src='./logo-white.png' alt='logo' />
                 <p>PawQuiz</p>
             </div>
             <div className='score-container'>
