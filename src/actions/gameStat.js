@@ -34,7 +34,23 @@ export const counterUp = () => {
   }
 }
 
+export const LOSE_COUNTER_UP = 'LOSE_COUNTER_UP'
 
+export const loseCounterUp = () => {
+  return {
+    type: LOSE_COUNTER_UP
+
+  }
+}
+
+export const RESET_GAME = 'RESET_GAME'
+
+export const resetGameStats = () => {
+  return {
+    type: RESET_GAME
+
+  }
+}
 
 
 
