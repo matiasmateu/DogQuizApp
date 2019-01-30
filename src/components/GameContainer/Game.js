@@ -14,3 +14,7 @@ export default (props) => {
     </section> 
   )
 }
+
+// You can see a picture of a dog, try to guess the breed among the three choices. 
+// After three right guesses you will go to the next level.
+//  
