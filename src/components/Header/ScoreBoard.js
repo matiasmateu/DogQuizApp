@@ -5,8 +5,8 @@ class ScoreBoard extends Component{
     
     render(){
         const totalTry = this.props.stats.winCounter + this.props.stats.loseCounter
-        const percentage = 100/totalTry*this.props.stats.winCounter
-        console.log(percentage)
+        const percentage = Math.round(100/totalTry*this.props.stats.winCounter)
+       
        
         return (
         <div className="score-board">
@@ -14,10 +14,7 @@ class ScoreBoard extends Component{
                 <li>Score: {this.props.stats.score}</li>
                 <li>Level: {this.props.stats.level}</li>
                 <li><i class="fas fa-thumbs-up"></i> {percentage || 0} % </li>
-                <li>
-                    <WinnerCount total={this.props.stats.counter}/> 
-                </li>
-                
+                <li><WinnerCount total={this.props.stats.counter} /></li>
             </ul>
         </div>)
     }
