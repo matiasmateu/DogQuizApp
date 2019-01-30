@@ -65,6 +65,7 @@ class OptionContainer extends Component{
         }
         if (this.props.questionList.length === 0){
             alert("GAME OVER LOOSER")
+            // show modal window and call this.props.getNewQuestion(0, 5)
         }else{
             this.props.nextQuestion()
         }
