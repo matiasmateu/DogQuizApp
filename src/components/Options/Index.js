@@ -72,31 +72,33 @@ class OptionContainer extends Component{
         }
     }
 
-    answers = this.generateOptions();
-
-    keyboardEvent = (event) => {
-        console.log(event)
-        switch(event) {
-            case "a":
-              this.checkAnswer(this.answers[0])
-              break;
-            case "b":
-              this.checkAnswer(this.answers[1])
-              break;
-            case "c":
-             this.checkAnswer(this.answers[2])
-             break;
-            default:
-            return null
-          }
-    }
-    
+  
     render(){ 
         let answers = this.generateOptions();
+        
+        const keyboardEvent = (event) => {
+            console.log(event)
+            switch(event) {
+                case "a":
+                console.log(answers[0])
+                  this.checkAnswer(answers[0])
+                  break;
+                case "b":
+                console.log(answers[1])
+                  this.checkAnswer(answers[1])
+                  break;
+                case "c":
+                console.log(answers[2])
+                 this.checkAnswer(answers[2])
+                 break;
+                default:
+                return null
+              }
+        }
+        
         return (
-              
         <div className="optionsContainer">
-    <KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => this.keyboardEvent(key)} />
+    <KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
     <OptionComponents onclick={() => this.checkAnswer(answers[0])} breed={answers[0]} />
     <OptionComponents onclick={() => this.checkAnswer(answers[1])} breed={answers[1]} />
     <OptionComponents onclick={() => this.checkAnswer(answers[2])} breed={answers[2]} />
