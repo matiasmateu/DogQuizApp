@@ -20,7 +20,7 @@ const customStyles = {
 
 class MessageModal extends Component {
   state = {
-    modalIsOpen: false
+    displayButton: false
   }
 
   closeModal = () => {
@@ -108,12 +108,11 @@ class MessageModal extends Component {
         </div>
       )
     }
-    
+   
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
       message: state.message
   }

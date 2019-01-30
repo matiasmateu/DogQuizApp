@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, resetGameStats } from '../../actions/gameStat'
 import { getNewQuestions,nextQuestion } from '../../actions/questions'
 import {showAlert} from '../../actions/message'
+import shuffle from '../../tools/ArrayShuffle'
 
 
 class OptionContainer extends Component{
@@ -21,31 +22,20 @@ class OptionContainer extends Component{
             incorrect2 = this.props.breeds[randomIndex2]
         }while((incorrect1.toUpperCase()===incorrect2.toUpperCase())||(incorrect1.toUpperCase()===this.props.currentAnswer.toUpperCase())||(incorrect2.toUpperCase()===this.props.currentAnswer.toUpperCase()))
         answers.push(incorrect1,incorrect2)
-        return this.shuffle(answers)
+        return shuffle(answers)
     }
 
-    /**
-    * Shuffles an array.
-    * @param {Array} a items An array containing the items.
-    */
-     shuffle(a) {
-        var j, x, i
-        for (i = a.length - 1; i > 0; i--) {
-            j = Math.floor(Math.random() * (i + 1))
-            x = a[i]
-            a[i] = a[j]
-            a[j] = x
-        }
-        return a
-    }
-    
-    /**
-    * Game Logic
-    * @value {string} the text of the button pressed
-    */
+
     checkAnswer =(value)=>{
         if( value !== this.props.currentAnswer){
-            this.props.showAlert("fas fa-times-circle","That's not the correct answer","Next Question",this.props.nextQuestion,true,true)
+            const message = (
+                <div>
+                    <p>Wrong!</p>
+                    <p>The correct answer is: <b>{this.props.currentAnswer}</b></p>
+                </div>
+            )
+            
+            this.props.showAlert("fas fa-times-circle", message, "Next Question", this.props.nextQuestion, true, true)
             this.props.loseCounterUp();
             this.props.resetCounter()
         } else {
