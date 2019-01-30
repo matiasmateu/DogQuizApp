@@ -32,19 +32,7 @@ class OptionContainer extends Component{
             this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentAnswer}. ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
             this.props.loseCounterUp();
             this.props.resetCounter()
-        } else {
-            this.props.showAlert("fas fa-check-circle",`Well Done, ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
-            const message = (
-                <div>
-                    <p>Wrong!</p>
-                    <p>The correct answer is: <b>{this.props.currentAnswer}</b></p>
-                </div>
-            )
-            
-            this.props.showAlert("fas fa-times-circle", message, "Next Question", this.props.nextQuestion, true, true)
-            this.props.loseCounterUp();
-            this.props.resetCounter()
-        } else {
+        }  else {
             this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
             if( this.props.gameStat.counter === 3){
                 this.props.getNewQuestions(this.props.gameStat.level, 5);
