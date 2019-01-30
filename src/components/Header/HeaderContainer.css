@@ -33,18 +33,32 @@
 .score-board {
     display: flex;
     align-items: center;
-    /* width: 60%; */
 }
 
 .score-board ul {
+    font-family: 'Righteous';
     display: flex;
     justify-content: space-around;
     align-items: center;
     list-style: none;
     margin: 0;
-    
 }
 
 .score-board ul li {
     margin-left: 1.5rem;
+}
+
+.fa-fire {
+    font-size: 20px;
+}
+
+@media screen and (max-width: 450px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .score-board {
+        margin-top: 5px;
+    }
 }
