@@ -58,7 +58,6 @@ class MessageModal extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
       message: state.message
   }

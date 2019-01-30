@@ -5,9 +5,7 @@ import { connect } from 'react-redux'
 
 class HeaderContainer extends Component{
     render(){
-        console.log(this.props.stats, '<<<<====STATS INSIDE HEADER CONTAINER')
-        return (
-            
+        return (    
         <header className="header">
             <div className="logo">
                 <img src='./logo-white.png' alt='logo' />
