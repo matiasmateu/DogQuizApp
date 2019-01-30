@@ -1,5 +1,5 @@
-const initialstate = ["Beagle","Cockapoo","Akita"]
+const initialState = ["Beagle","Cockapoo","Akita"]
 
-export default (state=initialstate, action={})=>{
+export default (state=initialState, action={})=>{
     return state
 }
