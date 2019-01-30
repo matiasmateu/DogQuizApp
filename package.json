@@ -10,6 +10,7 @@
     "react": "^16.7.0",
     "react-app": "^1.1.2",
     "react-dom": "^16.7.0",
+    "react-keyboard-event-handler": "^1.4.1",
     "react-modal": "^3.8.1",
     "react-redux": "^6.0.0",
     "react-scripts": "2.1.3",
