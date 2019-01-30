@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import OptionComponents from './OptionComponents'
 import { connect } from 'react-redux'
-import { resetCounter, scoreUp, counterUp, levelUp } from '../../actions/gameStat'
+import { resetCounter, scoreUp, counterUp, levelUp, loseCounterUp } from '../../actions/gameStat'
 import { getNewQuestions,nextQuestion } from '../../actions/questions'
 
 
@@ -46,6 +46,7 @@ class OptionContainer extends Component{
         
         if( value !== this.props.currentAnswer){
             alert('This is not the right answer! The right answer is ' + this.props.currentAnswer)
+            this.props.loseCounterUp();
             this.props.resetCounter()
         } else {
             alert('Well done, the right answer is ' + this.props.currentAnswer)
@@ -65,6 +66,7 @@ class OptionContainer extends Component{
         }
         if (this.props.questionList.length === 0){
             alert("GAME OVER LOOSER")
+            // show modal window and call this.props.getNewQuestion(0, 5)
         }else{
             this.props.nextQuestion()
         }
@@ -91,4 +93,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, getNewQuestions,nextQuestion })(OptionContainer)
+export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, getNewQuestions,nextQuestion })(OptionContainer)

@@ -4,7 +4,10 @@ import WinnerCount from './WinnerCount';
 class ScoreBoard extends Component{
     
     render(){
-        console.log(this.props.stats.score)
+        const totalTry = this.props.stats.winCounter + this.props.stats.loseCounter
+        const percentage = 100/totalTry*this.props.stats.winCounter
+        console.log(percentage)
+       
         return (
         <div className="score-board">
             <ul>
@@ -12,7 +15,8 @@ class ScoreBoard extends Component{
                 <li>Level: {this.props.stats.level}</li>
                 <li><i class="fas fa-thumbs-up"></i> 00%</li>
                 <li>
-                    <WinnerCount total={this.props.stats.counter}/>
+                    <WinnerCount total={this.props.stats.counter}  percentage={percentage}/> 
+                   
                 </li>
                 
             </ul>
