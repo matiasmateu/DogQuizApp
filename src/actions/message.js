@@ -2,7 +2,7 @@ export const SHOW_MESSAGE = 'SHOW_MESSAGE'
 export const HIDE_MESSAGE = 'HIDE_MESSAGE'
 
 
-export const showAlert  = (icon,message,buttonText,action,display, timer = false) => {
+export const showAlert  = (icon,message,buttonText,action,display, loader) => {
 
   return {
     type: SHOW_MESSAGE,
@@ -12,7 +12,6 @@ export const showAlert  = (icon,message,buttonText,action,display, timer = false
       buttonText,
       action,
       display,
-      timer,
       loader
   }
   }
