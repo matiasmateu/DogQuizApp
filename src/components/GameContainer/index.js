@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios'
 import Game from './Game';
 import { connect } from 'react-redux'
 import { levelUp } from '../../actions/gameStat'

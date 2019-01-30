@@ -11,7 +11,20 @@ const initialState = {
   currentQuestion: {
     question: "https://images.dog.ceo/breeds/cockapoo/bubbles2.jpg",
     correctAnswer: "Cockapoo"
-  }
+  },
+  questionMix:[{
+      type:1,
+      breed:"Akita",
+      option1:"https://images.dog.ceo/breeds/akita/512px-Akita_inu.jpeg",
+      option2:"https://images.dog.ceo/breeds/appenzeller/n02107908_3791.jpg",
+      option3:"https://images.dog.ceo/breeds/cairn/n02096177_1000.jpg"
+    },{
+      type:2,
+      breed:"https://images.dog.ceo/breeds/akita/512px-Akita_inu.jpeg",
+      option1:"Akita",
+      option2:"Dalmata",
+      option3:"Bulldog"
+    }]
 }
 
 export default (state = initialState, action = {}) => {

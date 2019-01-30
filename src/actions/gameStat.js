@@ -1,4 +1,4 @@
-import axios from 'axios'
+//import axios from 'axios'
 
 export const LEVEL_UP = 'LEVEL_UP'
 
@@ -53,7 +53,7 @@ export const resetGameStats = () => {
 }
 
 
-
+/*
 const getBreeds = (totalBreed) => {
   axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
     const breeds = Object.keys(result.data.message).slice(0, totalBreed)
@@ -61,3 +61,4 @@ const getBreeds = (totalBreed) => {
     console.log(questions, '<=== QUESTIONS')
   })
 }
+*/
