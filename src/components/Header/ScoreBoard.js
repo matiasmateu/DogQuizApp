@@ -5,7 +5,7 @@ class ScoreBoard extends Component{
     
     render(){
         const totalTry = this.props.stats.winCounter + this.props.stats.loseCounter
-        const percentage = 100/totalTry*this.props.stats.winCounter
+        const percentage = Math.round(100/totalTry*this.props.stats.winCounter)
         console.log(percentage)
        
         return (
