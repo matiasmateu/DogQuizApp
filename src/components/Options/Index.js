@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, resetGameStats } from '../../actions/gameStat'
 import { getNewQuestions,nextQuestion } from '../../actions/questions'
 import {showAlert} from '../../actions/message'
-
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 class OptionContainer extends Component{
     /**
@@ -45,7 +45,7 @@ class OptionContainer extends Component{
     checkAnswer =(value)=>{
         
         if( value !== this.props.currentAnswer){
-            this.props.showAlert("fas fa-times-circle","That's not the correct answer","Next Question",this.props.nextQuestion,true)
+            this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentAnswer}. ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
             this.props.loseCounterUp();
             this.props.resetCounter()
         } else {
@@ -70,21 +70,36 @@ class OptionContainer extends Component{
             this.props.getNewQuestions(0, 5)
 
         }
-        // else{
-        //     // this.props.nextQuestion()
-        // }
-        // if (this.props.questionList.length === 5){
-        // this.props.showAlert("fas fa-exclamation-circle","Only FIVE questions left, be careful!","Next Question",this.props.nextQuestion,true)
-        // }
     }
 
+    answers = this.generateOptions();
+
+    keyboardEvent = (event) => {
+        console.log(event)
+        switch(event) {
+            case "a":
+              this.checkAnswer(this.answers[0])
+              break;
+            case "b":
+              this.checkAnswer(this.answers[1])
+              break;
+            case "c":
+             this.checkAnswer(this.answers[2])
+             break;
+            default:
+            return null
+          }
+    }
+    
     render(){ 
         let answers = this.generateOptions();
-        return (  
+        return (
+              
         <div className="optionsContainer">
-                <OptionComponents onclick={() => this.checkAnswer(answers[0])} breed={answers[0]}/>
-                <OptionComponents onclick={() => this.checkAnswer(answers[1])} breed={answers[1]}/>
-                <OptionComponents onclick={() => this.checkAnswer(answers[2])} breed={answers[2]}/>
+    <KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => this.keyboardEvent(key)} />
+    <OptionComponents onclick={() => this.checkAnswer(answers[0])} breed={answers[0]} />
+    <OptionComponents onclick={() => this.checkAnswer(answers[1])} breed={answers[1]} />
+    <OptionComponents onclick={() => this.checkAnswer(answers[2])} breed={answers[2]} />
         </div>
     )}
 }
