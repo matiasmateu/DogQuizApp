@@ -40,12 +40,17 @@ class OptionContainer extends Component{
     }
     
 
-
-
     checkAnswer =(value)=>{
         
         if( value !== this.props.currentAnswer){
-            this.props.showAlert("fas fa-times-circle","That's not the correct answer","Next Question",this.props.nextQuestion,true)
+            const message = (
+                <div>
+                    <p>Wrong!</p>
+                    <p>The correct answer is: <b>{this.props.currentAnswer}</b></p>
+                </div>
+            )
+            
+            this.props.showAlert("fas fa-times-circle", message, "Next Question", this.props.nextQuestion, true, true)
             this.props.loseCounterUp();
             this.props.resetCounter()
         } else {

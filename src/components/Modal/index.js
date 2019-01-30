@@ -20,7 +20,7 @@ const customStyles = {
 
 class MessageModal extends Component {
   state = {
-    modalIsOpen: false
+    displayButton: false
   }
 
   closeModal = () => {
@@ -36,20 +36,21 @@ class MessageModal extends Component {
     this.props.hideAlert()
   }
 
+
   render() {
     return (
       <div className='yourAppElement'>
         <Modal
           ariaHideApp={false}
           isOpen={this.props.message.display}
-          onRequestClose={this.closeModal}
           contentLabel="Example Modal"
           style={customStyles}
         >
           <i className={this.props.message.icon+" icon"}></i>
           <h2>{this.props.message.message}</h2>
+
           <button onClick={this.clickHandler}>{this.props.message.buttonText}</button>
-  
+            
         </Modal>
       </div>
     )
