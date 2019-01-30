@@ -49,7 +49,7 @@ class OptionContainer extends Component{
             this.props.loseCounterUp();
             this.props.resetCounter()
         } else {
-            this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true)
+            this.props.showAlert("fas fa-check-circle",`Well Done, ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
             if( this.props.gameStat.counter === 3){
                 console.log()
                 this.props.resetCounter();
@@ -69,9 +69,13 @@ class OptionContainer extends Component{
             this.props.resetGameStats()
             this.props.getNewQuestions(0, 5)
 
-        }else{
-            this.props.nextQuestion()
         }
+        // else{
+        //     // this.props.nextQuestion()
+        // }
+        // if (this.props.questionList.length === 5){
+        // this.props.showAlert("fas fa-exclamation-circle","Only FIVE questions left, be careful!","Next Question",this.props.nextQuestion,true)
+        // }
     }
 
     render(){ 
