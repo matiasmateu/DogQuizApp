@@ -1,3 +1,5 @@
 .game {
-  border: 1px solid black;
+
+  width: 80%;
+  margin: 1rem auto 0 auto;
 }
