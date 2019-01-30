@@ -5,8 +5,9 @@ const initialState = {
     message:"That's not the correct answer!",
     buttonText:"Next Question",
     buttonAction:"NextQuestion",
-    display:false
-
+    display:false,
+    timer: false,
+    loader:false
 }
 
 export default (state = initialState, action = {}) => {
