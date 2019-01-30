@@ -3,6 +3,7 @@ import OptionComponents from './OptionComponents'
 import { connect } from 'react-redux'
 import { resetCounter, scoreUp, counterUp, levelUp, loseCounterUp } from '../../actions/gameStat'
 import { getNewQuestions,nextQuestion } from '../../actions/questions'
+import {showAlert} from '../../actions/message'
 
 
 class OptionContainer extends Component{
@@ -38,18 +39,17 @@ class OptionContainer extends Component{
         return a
     }
     
-    
 
 
 
     checkAnswer =(value)=>{
         
         if( value !== this.props.currentAnswer){
-            alert('This is not the right answer! The right answer is ' + this.props.currentAnswer)
+            this.props.showAlert("fas fa-times-circle","That's not the correct answer","Next Question",this.props.nextQuestion,true)
             this.props.loseCounterUp();
             this.props.resetCounter()
         } else {
-            alert('Well done, the right answer is ' + this.props.currentAnswer)
+            this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true)
             if( this.props.gameStat.counter === 3){
                 console.log()
                 this.props.resetCounter();
@@ -93,4 +93,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, getNewQuestions,nextQuestion })(OptionContainer)
+export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, getNewQuestions,nextQuestion,showAlert })(OptionContainer)
