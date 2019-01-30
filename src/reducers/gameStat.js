@@ -2,6 +2,7 @@ import { LEVEL_UP, RESET_COUNTER, SCORE_UP, COUNTER_UP } from '../actions/gameSt
 
 const initialState = {
   score: 0,
+  loses: 0,
   level: 0,
   counter: 0
 }
