@@ -42,6 +42,9 @@ class MessageModal extends Component {
         >
           <i className={this.props.message.icon+" icon"}></i>
           <h2>{this.props.message.message}</h2>
+          <div className='message_image-container'>
+            {this.props.message.image && <img className='correct_image' src={this.props.message.image} alt='Correct Answer'/>}
+          </div>
           <button onClick={this.clickHandler}>{this.props.message.buttonText}</button>
           {this.props.message.loader &&  <Loader/>}
         </Modal>

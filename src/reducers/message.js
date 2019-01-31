@@ -7,7 +7,8 @@ const initialState = {
     buttonAction:"NextQuestion",
     display:false,
     timer: false,
-    loader:false
+    loader:false,
+    image: null
 }
 
 export default (state = initialState, action = {}) => {
