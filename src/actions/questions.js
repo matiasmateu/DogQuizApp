@@ -28,9 +28,9 @@ export const updateBreeds = (breeds) => {
   }
 }
 
-export const removeBreed = (breed) => {
+export const addBreedToHistory = (breed) => {
   return {
-    type: REMOVE_BREED,
+    type: ADD_BREED,
     payload:breed
   }
 }
