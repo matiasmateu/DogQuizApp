@@ -19,7 +19,6 @@ export const nextQuestion = () => {
 }
 
 
-
 /* @breed {String} is used to fetch data from API
  *  return Promise{Image of breed} 
  */

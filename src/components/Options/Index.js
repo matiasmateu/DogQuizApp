@@ -6,6 +6,9 @@ import { genQuestionMix, nextQuestion } from '../../actions/questions'
 import {showAlert} from '../../actions/message'
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import shuffle from '../../tools/ArrayShuffle'
+import {questionOneExample} from '../../reducers/questions'
+import {questionTwoExample} from '../../reducers/questions'
+import OptionImageComponent from './OptionImageComponent';
 
 
 class OptionContainer extends Component{
@@ -56,36 +59,50 @@ class OptionContainer extends Component{
   
     render(){ 
         let answers = this.generateOptions();
-        
-        const keyboardEvent = (event) => {
-            console.log(event)
-            switch(event) {
-                case "a":
-                console.log(answers[0])
-                  this.checkAnswer(answers[0])
-                  break;
-                case "b":
-                console.log(answers[1])
-                  this.checkAnswer(answers[1])
-                  break;
-                case "c":
-                console.log(answers[2])
-                 this.checkAnswer(answers[2])
-                 break;
-                default:
-                return null
-              }
+
+        let currentQuestion = questionOneExample
+        if (currentQuestion.type===2){
+            return (  
+                <div className="optionsContainer">
+                    <OptionComponents  breed={currentQuestion.option1}/>
+                    <OptionComponents  breed={currentQuestion.option2}/>
+                    <OptionComponents  breed={currentQuestion.option3}/>
+                </div>
+            )
+        }else{
+            return (  
+                <div className="optionsContainer">
+                    <OptionImageComponent  breed={currentQuestion.option1}/>
+                    <OptionImageComponent  breed={currentQuestion.option2}/>
+                    <OptionImageComponent  breed={currentQuestion.option3}/>
+                </div>
+            )
         }
-        
-        return (
-        <div className="optionsContainer">
-    <KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
-    <OptionComponents onclick={() => this.checkAnswer(answers[0])} breed={answers[0]} />
-    <OptionComponents onclick={() => this.checkAnswer(answers[1])} breed={answers[1]} />
-    <OptionComponents onclick={() => this.checkAnswer(answers[2])} breed={answers[2]} />
-        </div>
-    )}
+    }
 }
+        
+//         const keyboardEvent = (event) => {
+//             console.log(event)
+//             switch(event) {
+//                 case "a":
+//                 console.log(answers[0])
+//                   this.checkAnswer(answers[0])
+//                   break;
+//                 case "b":
+//                 console.log(answers[1])
+//                   this.checkAnswer(answers[1])
+//                   break;
+//                 case "c":
+//                 console.log(answers[2])
+//                  this.checkAnswer(answers[2])
+//                  break;
+//                 default:
+//                 return null
+//               }
+//         }
+        
+
+//<KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
 
 const mapStateToProps = (state) => {
     return {
