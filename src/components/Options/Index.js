@@ -114,7 +114,6 @@ checkAnswer = (value) =>{
             )
         }else {
 
-            console.log('QUESTION', this.props.currentQuestion.question)
             if (this.props.breeds.indexOf(this.props.currentQuestion.question) > -1){
                 hint = false
             }else{
@@ -127,6 +126,7 @@ checkAnswer = (value) =>{
                 {options.map((option,i) => <OptionImageComponent  onClick={() => {this.checkAnswer(option)}} index={i} breed={option}/>)} 
             </div>
         )
+         }
     } 
 }
 
