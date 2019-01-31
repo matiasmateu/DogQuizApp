@@ -34,12 +34,11 @@ class MessageModal extends Component {
   }
 
   clickHandler = () => {
-    this.props.message.action()
+    // this.props.message.action()
     this.props.hideAlert()
   }
 
   render() {
-    if (this.props.message.loader){ 
     return (
       <div>
         <Modal
