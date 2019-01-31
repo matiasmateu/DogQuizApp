@@ -8,7 +8,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import shuffle from '../../tools/ArrayShuffle'
 import OptionImageComponent from './OptionImageComponent';
 import './OptionContainer.css'
-import {removeBreed} from '../../actions/questions'
+import {addBreedToHistory} from '../../actions/questions'
 
 
 class OptionContainer extends Component{
@@ -18,7 +18,7 @@ checkAnswer = (value) =>{
   
   // REMOVE BREED FROM BREED ARRAY
     if (this.props.currentQuestion.type===1){
-       this.props.removeBreed(this.props.currentQuestion.option1)
+       this.props.addBreedToHistory(this.props.currentQuestion.option1)
     }
 		if( value !== this.props.currentQuestion.option1) {
       this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentQuestion.option1}.`,"Next Question",this.props.nextQuestion,true)
@@ -85,10 +85,11 @@ checkAnswer = (value) =>{
             }
 
         if (currentQuestion.type === 1){
+            // HINT LOGIC
             if (this.props.breeds.indexOf(this.props.currentQuestion.option1)>-1){
-                hint = true
-            }else{
                 hint = false
+            }else{
+                hint = true
             }
 
             console.log(hint, 'HINT')
@@ -136,7 +137,7 @@ export default connect(mapStateToProps, {
 	resetGameStats,
 	showAlert,
 	emptyQuestionList,
-  removeBreed
+    addBreedToHistory
 })(OptionContainer)
 
 

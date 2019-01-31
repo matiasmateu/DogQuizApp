@@ -36,15 +36,11 @@ export default (state = initialState, action = {}) => {
         questionList: [],
         currentQuestion: null
       }
-    case UPDATE_BREEDS:
-      return {
-        ...state,
-        breeds : action.payload
-      }
+    
       case ADD_BREED:
       return {
         ...state,
-        breeds :  [...state.breeds.push(action.payload)]
+        breeds :  [...state.breeds,(action.payload)]
       }
     default:
       return state
