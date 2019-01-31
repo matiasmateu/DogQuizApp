@@ -7,7 +7,7 @@ import { nextQuestion, genQuestionMix } from '../../actions/questions'
 
 class GameContainer extends Component{
   componentDidMount() {
-      this.props.genQuestionMix(this.props.gameStat.level, 3)
+      this.props.genQuestionMix(this.props.gameStat.level, 25)
   }
 
   render(){ 
