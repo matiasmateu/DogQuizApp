@@ -4,6 +4,7 @@ export const CHECK_ANSWER = 'CHECK_ANSWER'
 export const SET_QUESTIONS = 'SET_QUESTIONS'
 export const NEXT_QUESTION = 'NEXT_QUESTION'
 export const UPDATE_BREEDS = 'UPDATE_BREEDS'
+export const EMPTY_LIST = 'EMPTY_LIST'
 export const REMOVE_BREED = 'REMOVE_BREED'
 
 export const setQuestionList = (questions) => {
@@ -32,6 +33,13 @@ export const removeBreed = (breed) => {
     payload:breed
   }
 }
+
+export const emptyQuestionList = () => {
+  return {
+    type: EMPTY_LIST
+  }
+}
+
 
 /* @breed {String} is used to fetch data from API
  *  return Promise{Image of breed} 
