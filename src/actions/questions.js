@@ -1,4 +1,5 @@
 import axios from 'axios'
+import arrayShuffle from '../tools/ArrayShuffle'
 
 export const CHECK_ANSWER = 'CHECK_ANSWER'
 export const SET_QUESTIONS = 'SET_QUESTIONS'
@@ -25,7 +26,7 @@ export const getNewQuestions = (level, maxQuestionPerBreed) =>{
     const totalBreed = currentLevel * 3
 
     await axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
-        const breeds = Object.keys(result.data.message).slice(0, totalBreed)
+        const breeds = arrayShuffle(Object.keys(result.data.message)).slice(0, totalBreed)
 
         let questions = [];
 
@@ -54,3 +55,4 @@ const fetchImage = (breed) => {
     })
   })
 }
+

@@ -1,7 +1,9 @@
 export const SHOW_MESSAGE = 'SHOW_MESSAGE'
 export const HIDE_MESSAGE = 'HIDE_MESSAGE'
 
-export const showAlert  = (icon,message,buttonText,action,display) => {
+
+export const showAlert  = (icon,message,buttonText,action,display, loader) => {
+
   return {
     type: SHOW_MESSAGE,
     payload: {
@@ -9,7 +11,8 @@ export const showAlert  = (icon,message,buttonText,action,display) => {
       message,
       buttonText,
       action,
-      display
+      display,
+      loader
   }
   }
 }
