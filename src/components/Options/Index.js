@@ -71,7 +71,7 @@ class OptionContainer extends Component{
             const opt2 = currentQuestion.option2
             const opt3 = currentQuestion.option3
             const options = shuffle([opt1, opt2, opt3])
-            console.log(options, 'OPTIONS')
+
             if (currentQuestion.type===1){
                 return (  
                     <div className="optionsContainer">
