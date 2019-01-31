@@ -42,12 +42,12 @@ checkAnswer = (value) =>{
 	newGame = () => {
 		this.props.resetGameStats()
 		this.props.emptyQuestionList()
-		this.props.genQuestionMix(1, 5)
+		this.props.genQuestionMix(1, 25)
 	}
 
 	levelUp = () => {
 		this.props.emptyQuestionList()
-		this.props.genQuestionMix(this.props.gameStat.level, 5)
+		this.props.genQuestionMix(this.props.gameStat.level, 25)
 		this.props.resetCounter()
 		this.props.levelUp()
 		this.props.scoreUp()
