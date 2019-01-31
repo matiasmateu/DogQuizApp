@@ -30,7 +30,7 @@ class OptionContainer extends Component{
     }
 
 
-    checkAnswer =(value)=>{
+    checkAnswer = (value) =>{
         if( value !== this.props.currentAnswer){
             this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentAnswer}. ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
             this.props.loseCounterUp();
@@ -63,17 +63,17 @@ class OptionContainer extends Component{
         if (currentQuestion.type===2){
             return (  
                 <div className="optionsContainer">
-                    <OptionComponents  breed={currentQuestion.option1}/>
-                    <OptionComponents  breed={currentQuestion.option2}/>
-                    <OptionComponents  breed={currentQuestion.option3}/>
+                    <OptionComponents  onClick={this.checkAnswer} breed={currentQuestion.option1}/>
+                    <OptionComponents  onClick={this.checkAnswer} breed={currentQuestion.option2}/>
+                    <OptionComponents  onClick={this.checkAnswer} breed={currentQuestion.option3}/>
                 </div>
             )
         }else{
             return (  
                 <div className="optionsContainer">
-                    <OptionImageComponent  breed={currentQuestion.option1}/>
-                    <OptionImageComponent  breed={currentQuestion.option2}/>
-                    <OptionImageComponent  breed={currentQuestion.option3}/>
+                    <OptionImageComponent  onClick={this.checkAnswer} breed={currentQuestion.option1}/>
+                    <OptionImageComponent  onClick={this.checkAnswer} breed={currentQuestion.option2}/>
+                    <OptionImageComponent  onClick={this.checkAnswer} breed={currentQuestion.option3}/>
                 </div>
             )
         }
