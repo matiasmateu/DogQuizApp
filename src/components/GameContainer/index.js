@@ -20,7 +20,7 @@ class GameContainer extends Component{
     }
 
     render(){ 
-        return (<Game {...this.props.currentQuestion} handleNextQuestion={this.onNextQuestion}/>)
+        return (<Game currentQuestion = {this.props.currentQuestion} handleNextQuestion={this.onNextQuestion}/>)
     }
 }
 

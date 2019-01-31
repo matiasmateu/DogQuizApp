@@ -2,9 +2,8 @@ import React from 'react'
 
 
 export default (props) => {
-    console.log(props)
     return(
-        <div className=" optionComponents">  
+        <div onClick={props.onClick} className=" optionComponents">  
             <button type="button" className="btn btn-outline-dark">{props.breed}</button>
         </div>
     ) 

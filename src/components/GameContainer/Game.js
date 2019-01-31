@@ -8,14 +8,21 @@ import {questionOneExample} from '../../reducers/questions'
 import {questionTwoExample} from '../../reducers/questions'
 
 export default (props) => {
-  return (
-    <section className="game">
-        <HeaderContainer />
-        <CardPicture currentQuestion={questionOneExample}/>
-        <OptionContainer />
-        <Modal/>
-    </section> 
-  )
+  console.log(props, 'PROPS')
+  const { currentQuestion } = props
+  if(currentQuestion) {
+    return (
+      <section className="game">
+          <HeaderContainer />
+          <CardPicture type={currentQuestion.type} question={currentQuestion.question}/>
+          <OptionContainer />
+          <Modal/>
+      </section> 
+    )
+  }
+
+  return (<div>Loading</div>)
+  
 }
 
 // You can see a picture of a dog, try to guess the breed among the three choices. 
