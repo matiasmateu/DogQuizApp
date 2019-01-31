@@ -4,8 +4,16 @@ import './OptionContainer.css'
 
 class OptionImageComponent extends Component{
     render(){
+        let style = ""
+
+        if((this.props.correct===this.props.breed) && (this.props.hint)){
+            style = "optionImageComponent__image image__hint"
+        }else{
+            style = "optionImageComponent__image"
+        }
+        
         return(
-            <div onClick={this.props.onClick} className="optionImageComponent__image">  
+            <div onClick={this.props.onClick} className={style}>  
                 <img src={this.props.breed} alt="breed-option"></img>
             </div>
         )

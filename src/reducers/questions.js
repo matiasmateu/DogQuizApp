@@ -38,10 +38,13 @@ export default (state = initialState, action = {}) => {
       }
     
       case ADD_BREED:
-      return {
-        ...state,
-        breeds :  [...state.breeds,(action.payload)]
+      if(state.breeds.indexOf(action.payload) === -1) {
+        return {
+          ...state,
+          breeds :  [...state.breeds,(action.payload)]
+        }
       }
+      return state
     default:
       return state
   }
