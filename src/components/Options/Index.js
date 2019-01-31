@@ -30,32 +30,34 @@ class OptionContainer extends Component{
     }
 
 
-    checkAnswer = (value, another) =>{
+    checkAnswer = (value) =>{
         console.log('CHECK_ANSWE', value)
-        console.log('CHECK_ANSWkmkE', another)
-        // if( value !== this.props.currentAnswer){
-        //     this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentAnswer}. ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
-        //     this.props.loseCounterUp();
-        //     this.props.resetCounter()
 
-        // }   else {
+       
+        if( value !== this.props.currentQuestion.option1) {
 
-        //     this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
-        //     if( this.props.gameStat.counter+1 === 3){
-        //         // this.props.getNewQuestions(this.props.gameStat.level, 5);
-        //         this.props.resetCounter();
-        //         this.props.levelUp();
-        //         this.props.scoreUp()
-        //         this.props.showAlert("fas fa-arrow-circle-up",`Level:${this.props.gameStat.level+1}`,"Next Question",this.props.nextQuestion,true,true)
-        //     } else {
-        //         this.props.scoreUp();
-        //         this.props.counterUp();
-        //     }
-        // }
-        // if (this.props.questionList.length === 0){
-        //     this.props.showAlert("fas fa-skull-crossbones","GAME OVER!","Restart Game",this.props.resetGameStats,true,false)
-        //     this.props.getNewQuestions(0, 5)
-        // }
+            this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentAnswer}. ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
+            this.props.loseCounterUp();
+            this.props.resetCounter()
+
+        }   else {
+
+            this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
+            if( this.props.gameStat.counter+1 === 3){
+                // this.props.getNewQuestions(this.props.gameStat.level, 5);
+                this.props.resetCounter();
+                this.props.levelUp();
+                this.props.scoreUp()
+                this.props.showAlert("fas fa-arrow-circle-up",`Level:${this.props.gameStat.level+1}`,"Next Question",this.props.nextQuestion,true,true)
+            } else {
+                this.props.scoreUp();
+                this.props.counterUp();
+            }
+        }
+        if (this.props.questionList.length === 0){
+            this.props.showAlert("fas fa-skull-crossbones","GAME OVER!","Restart Game",this.props.resetGameStats,true,false)
+            this.props.getNewQuestions(0, 5)
+        }
     }
 
   
@@ -65,20 +67,25 @@ class OptionContainer extends Component{
         if(this.props.currentQuestion) {
 
             let currentQuestion = this.props.currentQuestion
-            if (currentQuestion.type===2){
+            const opt1 = currentQuestion.option1
+            const opt2 = currentQuestion.option2
+            const opt3 = currentQuestion.option3
+            const options = shuffle([opt1, opt2, opt3])
+            console.log(options, 'OPTIONS')
+            if (currentQuestion.type===1){
                 return (  
                     <div className="optionsContainer">
-                        <OptionComponents  onClick={() => {this.checkAnswer(currentQuestion.option1)}} breed={currentQuestion.option1}/>
-                        <OptionComponents  onClick={this.checkAnswer} breed={currentQuestion.option2}/>
-                        <OptionComponents  onClick={this.checkAnswer} breed={currentQuestion.option3}/>
+                        <OptionComponents  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]}/>
+                        <OptionComponents  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]}/>
+                        <OptionComponents  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]}/>
                     </div>
                 )
             }else{
                 return (  
                     <div className="optionsContainer">
-                        <OptionImageComponent  onClick={this.checkAnswer} breed={currentQuestion.option1}/>
-                        <OptionImageComponent  onClick={this.checkAnswer} breed={currentQuestion.option2}/>
-                        <OptionImageComponent  onClick={this.checkAnswer} breed={currentQuestion.option3}/>
+                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]}/>
+                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]}/>
+                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]}/>
                     </div>
                 )
             }
