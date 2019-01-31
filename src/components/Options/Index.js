@@ -8,22 +8,34 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import shuffle from '../../tools/ArrayShuffle'
 import OptionImageComponent from './OptionImageComponent';
 import './OptionContainer.css'
-import {addBreedToHistory} from '../../actions/questions'
+import { addBreedToHistory } from '../../actions/questions'
 
 
 class OptionContainer extends Component{
 
-   
 checkAnswer = (value) =>{
   
   // REMOVE BREED FROM BREED ARRAY
     if (this.props.currentQuestion.type===1){
        this.props.addBreedToHistory(this.props.currentQuestion.option1)
+    } else {
+        this.props.addBreedToHistory(this.props.currentQuestion.question)
     }
+
 		if( value !== this.props.currentQuestion.option1) {
+            if(this.props.currentQuestion.type === 2) {
+                this.props.showAlert("fas fa-times-circle",`Wrong!, the correct answer is:`,"Next Question",this.props.nextQuestion,true, false, this.props.currentQuestion.option1)
+            } else {
+                this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentQuestion.option1}.`,"Next Question",this.props.nextQuestion,true)
+            }
+
+            this.props.loseCounterUp();
+            this.props.resetCounter()
+      
       this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentQuestion.option1}.`,"Next Question",this.props.nextQuestion,true,true)
       this.props.loseCounterUp();
       this.props.resetCounter()
+
 		}   else {
 				this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
 				if( this.props.gameStat.counter+1 === 3){
@@ -42,12 +54,12 @@ checkAnswer = (value) =>{
 	newGame = () => {
 		this.props.resetGameStats()
 		this.props.emptyQuestionList()
-		this.props.genQuestionMix(1, 5)
+		this.props.genQuestionMix(1, 25)
 	}
 
 	levelUp = () => {
 		this.props.emptyQuestionList()
-		this.props.genQuestionMix(this.props.gameStat.level, 5)
+		this.props.genQuestionMix(this.props.gameStat.level, 25)
 		this.props.resetCounter()
 		this.props.levelUp()
 		this.props.scoreUp()
@@ -100,15 +112,25 @@ checkAnswer = (value) =>{
                     {options.map((option) => <OptionComponents correct={opt1} key={option} onClick={() => {this.checkAnswer(option)}} breed={option} hint={hint}/>)} 
                 </div>
             )
+        }else {
+
+            console.log('QUESTION', this.props.currentQuestion.question)
+            if (this.props.breeds.indexOf(this.props.currentQuestion.question) > -1){
+                hint = false
+            }else{
+                hint = true
+            }
+    
+            return (  
+                <div className="optionImageComponent">
+                    <KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
+                    {options.map((option) => <OptionImageComponent key={option} correct={opt1} onClick={() => {this.checkAnswer(option)}} breed={option} hint={hint}/>)} 
+                </div>
+            )
         }
      
 
-        return (  
-            <div className="optionImageComponent">
-                <KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
-                {options.map((option) => <OptionImageComponent  onClick={() => {this.checkAnswer(option)}} breed={option}/>)} 
-            </div>
-        )
+        
     } 
 }
 
