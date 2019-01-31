@@ -6,9 +6,8 @@ import { genQuestionMix, nextQuestion } from '../../actions/questions'
 import {showAlert} from '../../actions/message'
 //import KeyboardEventHandler from 'react-keyboard-event-handler';
 import shuffle from '../../tools/ArrayShuffle'
-import {questionOneExample} from '../../reducers/questions'
-import {questionTwoExample} from '../../reducers/questions'
 import OptionImageComponent from './OptionImageComponent';
+import './OptionContainer.css'
 
 
 class OptionContainer extends Component{
@@ -72,7 +71,7 @@ class OptionContainer extends Component{
             const opt3 = currentQuestion.option3
             const options = shuffle([opt1, opt2, opt3])
 
-            if (currentQuestion.type===1){
+            if (currentQuestion.type === 1){
                 return (  
                     <div className="optionsContainer">
                         <OptionComponents  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]}/>
@@ -82,7 +81,7 @@ class OptionContainer extends Component{
                 )
             }else{
                 return (  
-                    <div className="optionsContainer">
+                    <div className="optionImageComponent">
                         <OptionImageComponent  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]}/>
                         <OptionImageComponent  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]}/>
                         <OptionImageComponent  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]}/>
