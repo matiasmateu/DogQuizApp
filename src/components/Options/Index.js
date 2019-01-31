@@ -21,7 +21,7 @@ checkAnswer = (value) =>{
        this.props.addBreedToHistory(this.props.currentQuestion.option1)
     }
 		if( value !== this.props.currentQuestion.option1) {
-      this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentQuestion.option1}.`,"Next Question",this.props.nextQuestion,true)
+      this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentQuestion.option1}.`,"Next Question",this.props.nextQuestion,true,true)
       this.props.loseCounterUp();
       this.props.resetCounter()
 		}   else {
