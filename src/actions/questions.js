@@ -1,8 +1,9 @@
 import axios from 'axios'
-import arrayShuffle from '../tools/ArrayShuffle'
+import shuffleArray from '../tools/ArrayShuffle'
 export const CHECK_ANSWER = 'CHECK_ANSWER'
 export const SET_QUESTIONS = 'SET_QUESTIONS'
 export const NEXT_QUESTION = 'NEXT_QUESTION'
+export const UPDATE_BREEDS = 'UPDATE_BREEDS'
 
 export const setQuestionList = (questions) => {
   return {
@@ -16,35 +17,11 @@ export const nextQuestion = () => {
     type: NEXT_QUESTION
   }
 }
-/*
-* @level current level of the game. The returned array is going to be as big as the level * 3
-* @maxQuestionPerBreed - Limit the number of question retrieved from the API
-* returns an action and updates the state with the new questions.
-*/
-export const getNewQuestions = (level, maxQuestionPerBreed) =>{  
-  return async (dispatch) => {
-    const currentLevel = level + 1
-    const totalBreed = currentLevel * 3
-    await axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
-        const breeds = arrayShuffle(Object.keys(result.data.message)).slice(0, totalBreed)
-        let questions = [];
-        for(let x = 0; x < breeds.length; x++) {
-          const images = await fetchImage(breeds[x])
-          for(let y = 0; y < maxQuestionPerBreed; y++) {
-            questions.push({
-              question: images[y],
-              correctAnswer: breeds[x]
-            })
-          }
-        }
-        dispatch(setQuestionList(questions))
-    })
-  }
-}
+
 
 /* @breed {String} is used to fetch data from API
-*  return Promise{Image of breed} 
-*/
+ *  return Promise{Image of breed} 
+ */
 const fetchImage = (breed) => {
   return new Promise((resolve) => {
     axios.get(`https://dog.ceo/api/breed/${breed}/images`).then((result) => {
@@ -55,62 +32,85 @@ const fetchImage = (breed) => {
 }
 
 /* FUNCTION FETCH
-* return an unsorted array of breeds according to the current level
-* @level is used as limit of the returned array
-*/
-const updateBreeds = async (level) => {
-    let breeds;
-    await axios.get('https://dog.ceo/api/breeds/list/all').then( 
-      async (result) => {
-         breeds = arrayShuffle(Object.keys(result.data.message)).slice(0, level*3)})
-    return arrayShuffle(breeds);
+ * return an unsorted array of breeds according to the current level
+ * @level is used as limit of the returned array
+ */
+const fetchBreeds = async (level) => {
+  return new Promise(resolve => {
+    axios.get('https://dog.ceo/api/breeds/list/all').then(async (result) => {
+      const breeds = shuffleArray(Object.keys(result.data.message)).slice(0, level * 3)
+      resolve(breeds)
+    })
+  })
 }
 
 
+/* sent an array of mixed questions to redux state
+ * @level of the game to define how many breeds
+ * @maxQuestion to define how many questions per breed
+ */
+export const genQuestionMix = (level, maxQuestions) => {
+  return async (dispatch) => {
 
-/* returns an Object of type QUESTION 1
-*
-*/
-const genQuestion1 = async (breeds) =>{
-  const image = await fetchImage(breeds[0])
-    return {
-      type:1,
-      question:image,
-      option1:breeds[0],
-      option2:breeds[1],
-      option3:breeds[2]
-    }
+    fetchBreeds(level).then(async breeds => {
+      let questionMix = [];
+
+      for (let breed of breeds) {
+
+        for (let index = 0; index < maxQuestions; index++) {
+
+          const correctAnswer = breed
+          const wrongAnswers = breeds.filter((breed) => breed !== correctAnswer)
+
+          const questionOne = await genQuestionOne(correctAnswer, wrongAnswers)
+          questionMix.push(questionOne)
+
+          const questionTwo = await genQuestionTwo(correctAnswer, wrongAnswers)
+          questionMix.push(questionTwo)
+        }
+
+      }
+
+
+      questionMix = await shuffleArray([...questionMix].sort(() => Math.random() - 0.5));
+
+      // Updating the redux state of questions
+      dispatch(setQuestionList(questionMix))
+
+    })
+
+
+  }
+
 }
 
-/* returns an Object of type QUESTION 2
-*
-*/
-const genQuestion2 = async (breeds) => {
-  // const images = await fetchImage(breeds[0])
-  const correctImage = await fetchImage(breeds[0])
-  const wrongOne = await fetchImage(breeds[1])
-  const wrongTwo = await fetchImage(breeds[2])
+
+const genQuestionOne = async (correctAnswer, wrongAnswers) => {
+  const image = await fetchImage(correctAnswer)
+  const shuffledWrongAnswers = await shuffleArray([...wrongAnswers])
+
   return {
-    type:2,
-    question:breeds[0],
+    type: 1,
+    question: image,
+    option1: correctAnswer,
+    option2: shuffledWrongAnswers[0],
+    option3: shuffledWrongAnswers[1]
+  }
+}
+
+const genQuestionTwo = async (correctAnswer, wrongAnswers) => {
+  const correctImage = await fetchImage(correctAnswer)
+
+  // Changing the order of the wrong breeds
+  const shuffledWrongAnswers = await shuffleArray([...wrongAnswers])
+  const wrongOne = await fetchImage(shuffledWrongAnswers[0])
+  const wrongTwo = await fetchImage(shuffledWrongAnswers[1])
+
+  return {
+    type: 2,
+    question: correctAnswer,
     option1: correctImage,
     option2: wrongOne,
     option3: wrongTwo
   }
-}
-
-/* returns an array of questions
-* @level of the game to define how many breeds
-* @maxQuestion to define how many questions per breed
-*/
-function genQuestionMix(level,maxQuestions){
-  let questionMix = [];
-  updateBreeds(level).then( async result =>  {
-    for (let index = 0; index < maxQuestions; index++) {
-      const questionOne = await genQuestion1(result)
-      const questionTwo = await genQuestion2(result)
-      questionMix.push(questionOne,questionTwo)
-    }
-  })
-  return arrayShuffle(questionMix)
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Game from './Game';
 import { connect } from 'react-redux'
 import { levelUp } from '../../actions/gameStat'
-import { getNewQuestions, nextQuestion } from '../../actions/questions'
+import { nextQuestion, genQuestionMix } from '../../actions/questions'
 
 
 class GameContainer extends Component{
@@ -12,8 +12,7 @@ class GameContainer extends Component{
     }
 
     componentDidMount() {
-        this.props.getNewQuestions(this.props.gameStat.level, 5)
-
+        this.props.genQuestionMix(this.props.gameStat.level, 5)
     }
 
     onNextQuestion = () => {
@@ -32,4 +31,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { levelUp,  getNewQuestions, nextQuestion })(GameContainer)
+export default connect(mapStateToProps, { levelUp,  genQuestionMix, nextQuestion })(GameContainer)
