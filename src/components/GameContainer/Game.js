@@ -6,8 +6,6 @@ import Modal from '../Modal';
 import InfoContainer from '../Info/InfoContainer';
 import Loader from '../Loader';
 import './game.css'
-import Loader from '../Loader';
-import './game.css'
 
 
 export default (props) => {
