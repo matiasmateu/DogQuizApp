@@ -6,6 +6,7 @@ export const NEXT_QUESTION = 'NEXT_QUESTION'
 export const UPDATE_BREEDS = 'UPDATE_BREEDS'
 export const EMPTY_LIST = 'EMPTY_LIST'
 export const REMOVE_BREED = 'REMOVE_BREED'
+export const ADD_BREED = 'ADD_BREED'
 
 export const setQuestionList = (questions) => {
   return {
@@ -27,9 +28,9 @@ export const updateBreeds = (breeds) => {
   }
 }
 
-export const removeBreed = (breed) => {
+export const addBreedToHistory = (breed) => {
   return {
-    type: REMOVE_BREED,
+    type: ADD_BREED,
     payload:breed
   }
 }
@@ -41,9 +42,6 @@ export const emptyQuestionList = () => {
 }
 
 
-/* @breed {String} is used to fetch data from API
- *  return Promise{Image of breed} 
- */
 const fetchImage = (breed) => {
   return new Promise((resolve) => {
     axios.get(`https://dog.ceo/api/breed/${breed}/images`).then((result) => {
@@ -72,30 +70,32 @@ const fetchBreeds = async (level) => {
  * @maxQuestion to define how many questions per breed
  */
 export const genQuestionMix = (level, maxQuestions) => {
+
+  const maxQuestion = 25;
+
   return async (dispatch) => {
 
     fetchBreeds(level).then(async breeds => {
-      let questionMix = [];
+
       // Updating the redux state of questions-breeds
       dispatch(updateBreeds(breeds))
-      for (let breed of breeds) {
 
-        for (let index = 0; index < maxQuestions; index++) {
+      let questionMix = [];
 
-          const correctAnswer = breed
-          const wrongAnswers = breeds.filter((breed) => breed !== correctAnswer)
+      // Fetching a total of questions: maxQuestion
+      for(let tot = 0; tot < maxQuestion; tot++) {
+        const correctAnswer = shuffleArray(breeds)[0]
+        const wrongAnswers = breeds.filter((breed) => breed !== correctAnswer)
 
-          const questionOne = await genQuestionOne(correctAnswer, wrongAnswers)
-          questionMix.push(questionOne)
-
-          const questionTwo = await genQuestionTwo(correctAnswer, wrongAnswers)
-          questionMix.push(questionTwo)
+        // Splitting the question into two different type
+        if(tot % 2 === 0) {
+          questionMix.push(await genQuestionTypeOne(correctAnswer, wrongAnswers))
+        } else {
+          questionMix.push(await genQuestionTypeTwo(correctAnswer))
         }
-
       }
 
-
-      questionMix = await shuffleArray([...questionMix].sort(() => Math.random() - 0.5));
+      questionMix = await shuffleArray([...questionMix]).sort(() => Math.random() - 0.5);
 
       // Updating the redux state of questions
       dispatch(setQuestionList(questionMix))
@@ -108,9 +108,9 @@ export const genQuestionMix = (level, maxQuestions) => {
 }
 
 
-const genQuestionOne = async (correctAnswer, wrongAnswers) => {
+const genQuestionTypeOne = async (correctAnswer, wrongAnswers) => {
   const image = await fetchImage(correctAnswer)
-  const shuffledWrongAnswers = await shuffleArray([...wrongAnswers])
+  const shuffledWrongAnswers = shuffleArray([...wrongAnswers])
 
   return {
     type: 1,
@@ -121,19 +121,28 @@ const genQuestionOne = async (correctAnswer, wrongAnswers) => {
   }
 }
 
-const genQuestionTwo = async (correctAnswer, wrongAnswers) => {
-  const correctImage = await fetchImage(correctAnswer)
 
-  // Changing the order of the wrong breeds
-  const shuffledWrongAnswers = await shuffleArray([...wrongAnswers])
-  const wrongOne = await fetchImage(shuffledWrongAnswers[0])
-  const wrongTwo = await fetchImage(shuffledWrongAnswers[1])
 
-  return {
-    type: 2,
-    question: correctAnswer,
-    option1: correctImage,
-    option2: wrongOne,
-    option3: wrongTwo
-  }
+const genQuestionTypeTwo = async (correctAnswer) => {
+  return new Promise((resolve) => {
+    Promise.all([fetchImage(correctAnswer), fetchRandomImage()]).then(([correctImage, randomImage]) => {
+      const filterRandom = randomImage.filter((image) => !image.includes(correctAnswer))
+      resolve({
+        type: 2,
+        question: correctAnswer,
+        option1: correctImage,
+        option2: filterRandom[0],
+        option3: filterRandom[1]
+      })
+    })
+  })
+  
+}
+
+const fetchRandomImage = async () => {
+  return new Promise((resolve) => {
+    axios.get('https://dog.ceo/api/breeds/image/random/3').then((images) => {
+      resolve(images.data.message)
+    })
+  })
 }

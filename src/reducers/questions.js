@@ -5,7 +5,7 @@ import {
   NEXT_QUESTION,
   EMPTY_LIST,
   UPDATE_BREEDS,
-  REMOVE_BREED
+  ADD_BREED
 } from '../actions/questions'
 
 const initialState = {
@@ -36,15 +36,11 @@ export default (state = initialState, action = {}) => {
         questionList: [],
         currentQuestion: null
       }
-    case UPDATE_BREEDS:
+    
+      case ADD_BREED:
       return {
         ...state,
-        breeds : action.payload
-      }
-      case REMOVE_BREED:
-      return {
-        ...state,
-        breeds :  [...state.breeds.filter(elem=>elem!==action.payload)]
+        breeds :  [...state.breeds,(action.payload)]
       }
     default:
       return state
