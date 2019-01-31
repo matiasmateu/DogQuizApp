@@ -25,21 +25,16 @@ class MessageModal extends Component {
     stop:false
   }
 
-
-  close = () => {
-    this.props.message.action()
-    this.props.hideAlert()
-  }
-
-  close2 = (f1) => {
-    f1()
-    this.props.hideAlert();
-  }
-
-
   clickHandler = () => {
     // this.props.message.action()
     this.props.hideAlert()
+  }
+
+  timer(){
+    setTimeout(() => {
+      this.props.hideAlert();
+      if(this.props.message.action!==null){this.props.message.action()}
+    }, 2000)
   }
 
   render() {
