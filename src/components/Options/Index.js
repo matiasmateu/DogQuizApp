@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, resetGameStats } from '../../actions/gameStat'
 import { genQuestionMix, nextQuestion } from '../../actions/questions'
 import {showAlert} from '../../actions/message'
-//import KeyboardEventHandler from 'react-keyboard-event-handler';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 import shuffle from '../../tools/ArrayShuffle'
 import {questionOneExample} from '../../reducers/questions'
 import {questionTwoExample} from '../../reducers/questions'
@@ -36,7 +36,8 @@ class OptionContainer extends Component{
        
         if( value !== this.props.currentQuestion.option1) {
 
-            this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentAnswer}. ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
+            this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentQuestion.option1}.`,"Next Question",this.props.nextQuestion,true)
+            // ${this.props.questionList.length} questions left
             this.props.loseCounterUp();
             this.props.resetCounter()
 
@@ -62,8 +63,7 @@ class OptionContainer extends Component{
 
   
     render(){ 
-        //let answers = this.generateOptions();
-        
+
         if(this.props.currentQuestion) {
 
             let currentQuestion = this.props.currentQuestion
@@ -72,9 +72,30 @@ class OptionContainer extends Component{
             const opt3 = currentQuestion.option3
             const options = shuffle([opt1, opt2, opt3])
 
+            const keyboardEvent = (event) => {
+                console.log(event)
+                switch(event) {
+                    case "a":
+                    console.log(options[0])
+                      this.checkAnswer(options[0])
+                      break;
+                    case "b":
+                    console.log(options[1])
+                      this.checkAnswer(options[1])
+                      break;
+                    case "c":
+                    console.log(options[2])
+                     this.checkAnswer(options[2])
+                     break;
+                    default:
+                    return null
+                  }
+            }
+
             if (currentQuestion.type===1){
                 return (  
                     <div className="optionsContainer">
+                        <KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
                         <OptionComponents  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]}/>
                         <OptionComponents  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]}/>
                         <OptionComponents  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]}/>
@@ -83,6 +104,7 @@ class OptionContainer extends Component{
             }else{
                 return (  
                     <div className="optionsContainer">
+                    <KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
                         <OptionImageComponent  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]}/>
                         <OptionImageComponent  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]}/>
                         <OptionImageComponent  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]}/>
@@ -96,28 +118,6 @@ class OptionContainer extends Component{
     }
 }
         
-//         const keyboardEvent = (event) => {
-//             console.log(event)
-//             switch(event) {
-//                 case "a":
-//                 console.log(answers[0])
-//                   this.checkAnswer(answers[0])
-//                   break;
-//                 case "b":
-//                 console.log(answers[1])
-//                   this.checkAnswer(answers[1])
-//                   break;
-//                 case "c":
-//                 console.log(answers[2])
-//                  this.checkAnswer(answers[2])
-//                  break;
-//                 default:
-//                 return null
-//               }
-//         }
-        
-
-//<KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
 
 const mapStateToProps = (state) => {
     console.log(state, 'STATE')

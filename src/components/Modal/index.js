@@ -24,9 +24,13 @@ class MessageModal extends Component {
   }
 
   closeModal = () => {
-    
-  }
+    console.log(this.state)
+    setTimeout(()=> {
+      this.setState({display: false});
+    }, 2000)
+  };
 
+  
   openModal = () => {
     
   }
@@ -90,6 +94,7 @@ class MessageModal extends Component {
           </Modal>
         </div>
       )
+      
     }else{
       return (
         <div className='yourAppElement'>
@@ -103,7 +108,7 @@ class MessageModal extends Component {
             <i className={this.props.message.icon+" icon"}></i>
             <h2>{this.props.message.message}</h2>
             <button onClick={this.clickHandler}>{this.props.message.buttonText}</button>
-  
+            
           </Modal>
         </div>
       )
