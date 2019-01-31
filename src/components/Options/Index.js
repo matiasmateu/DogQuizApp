@@ -30,11 +30,7 @@ checkAnswer = (value) =>{
             }
 
             this.props.loseCounterUp();
-            this.props.resetCounter()
-      
-      this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentQuestion.option1}.`,"Next Question",this.props.nextQuestion,true,true)
-      this.props.loseCounterUp();
-      this.props.resetCounter()
+            this.props.resetCounter();
 
 		}   else {
 				this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)

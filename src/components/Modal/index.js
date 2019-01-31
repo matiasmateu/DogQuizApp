@@ -39,6 +39,7 @@ class MessageModal extends Component {
 
   render() {
     if(this.props.message.display){
+
       return (
         <div>
           <Modal
@@ -67,6 +68,7 @@ class MessageModal extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.message, 'MESSAGE')
   return {
       message: state.message
   }
