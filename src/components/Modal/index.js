@@ -21,35 +21,48 @@ const customStyles = {
 
 class MessageModal extends Component {
   state = {
-    displayButton: false
+    displayButton: false,
+    stop:false
   }
 
-
   clickHandler = () => {
-    this.props.message.action()
+    // this.props.message.action()
     this.props.hideAlert()
   }
 
+  timer(){
+    setTimeout(() => {
+      this.props.hideAlert();
+      if(this.props.message.action!==null){this.props.message.action()}
+    }, 2000)
+  }
+
   render() {
-    return (
-      <div>
-        <Modal
-          ariaHideApp={false}
-          isOpen={this.props.message.display}
-          onRequestClose={this.closeModal}
-          contentLabel="Message"
-          style={customStyles}
-        >
-          <i className={this.props.message.icon+" icon"}></i>
-          <h2>{this.props.message.message}</h2>
-          <div className='message_image-container'>
-            {this.props.message.image && <img className='correct_image' src={this.props.message.image} alt='Correct Answer'/>}
-          </div>
-          <button onClick={this.clickHandler}>{this.props.message.buttonText}</button>
-          {this.props.message.loader &&  <Loader/>}
-        </Modal>
-      </div>
-    )
+    if(this.props.message.display){
+      return (
+        <div>
+          <Modal
+            ariaHideApp={false}
+            isOpen={this.props.message.display}
+            onRequestClose={this.closeModal}
+            contentLabel="Message"
+            style={customStyles}
+          >
+            <i className={this.props.message.icon+" icon"}></i>
+            <h2>{this.props.message.message}</h2>
+            <div className='message_image-container'>
+              {this.props.message.image && <img className='correct_image' src={this.props.message.image} alt='Correct Answer'/>}
+            </div>
+            {//<button onClick={this.close}>{this.props.message.buttonText}</button>
+            }
+            {this.props.message.loader &&  <Loader/>}
+            {this.timer()}
+          </Modal>
+        </div>
+      )
+    }else{
+      return<div></div>
+    }
   }
 }
 
