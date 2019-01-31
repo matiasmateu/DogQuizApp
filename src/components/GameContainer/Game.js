@@ -3,8 +3,8 @@ import CardPicture from './CardPicture'
 import HeaderContainer from '../Header/Index'
 import OptionContainer from '../Options/Index'
 import Modal from '../Modal';
-import './game.css'
 import Loader from '../Loader';
+import './game.css'
 
 export default (props) => {
   const { currentQuestion } = props

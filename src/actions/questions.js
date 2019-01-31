@@ -4,6 +4,7 @@ export const CHECK_ANSWER = 'CHECK_ANSWER'
 export const SET_QUESTIONS = 'SET_QUESTIONS'
 export const NEXT_QUESTION = 'NEXT_QUESTION'
 export const UPDATE_BREEDS = 'UPDATE_BREEDS'
+export const EMPTY_LIST = 'EMPTY_LIST'
 
 export const setQuestionList = (questions) => {
   return {
@@ -15,6 +16,13 @@ export const setQuestionList = (questions) => {
 export const nextQuestion = () => {
   return {
     type: NEXT_QUESTION
+  }
+}
+
+
+export const emptyQuestionList = () => {
+  return {
+    type: EMPTY_LIST
   }
 }
 

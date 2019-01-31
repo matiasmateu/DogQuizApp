@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import OptionComponents from './OptionComponents'
 import { connect } from 'react-redux'
 import { resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, resetGameStats } from '../../actions/gameStat'
-import { genQuestionMix, nextQuestion } from '../../actions/questions'
+import { genQuestionMix, nextQuestion, emptyQuestionList } from '../../actions/questions'
 import {showAlert} from '../../actions/message'
 //import KeyboardEventHandler from 'react-keyboard-event-handler';
 import shuffle from '../../tools/ArrayShuffle'
@@ -11,89 +11,67 @@ import './OptionContainer.css'
 
 
 class OptionContainer extends Component{
-    /**
-    * Returns an array of 3 options with random order. It includes the correct Answer
-    */
-    generateOptions(){
-        let answers = [this.props.currentAnswer]
-        let incorrect1
-        let incorrect2
-        do{
-            let randomIndex1 = Math.floor(Math.random() * (this.props.breeds.length))
-            incorrect1 = this.props.breeds[randomIndex1]
-            let randomIndex2 = Math.floor(Math.random() * (this.props.breeds.length))
-            incorrect2 = this.props.breeds[randomIndex2]
-        }while((incorrect1.toUpperCase()===incorrect2.toUpperCase())||(incorrect1.toUpperCase()===this.props.currentAnswer.toUpperCase())||(incorrect2.toUpperCase()===this.props.currentAnswer.toUpperCase()))
-        answers.push(incorrect1,incorrect2)
-        return shuffle(answers)
-    }
 
+	checkAnswer = (value) =>{
+		if( value !== this.props.currentQuestion.option1) {
 
-    checkAnswer = (value) =>{
-        console.log('CHECK_ANSWE', value)
+			this.props.showAlert("fas fa-times-circle",`Wrong!, the correct answer is ${this.props.currentAnswer}. ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
+			this.props.loseCounterUp();
+			this.props.resetCounter()
 
-       
-        if( value !== this.props.currentQuestion.option1) {
+		}   else {
 
-            this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentAnswer}. ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
-            this.props.loseCounterUp();
-            this.props.resetCounter()
+				this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
+				if( this.props.gameStat.counter+1 === 3){
+						this.props.showAlert("fas fa-arrow-circle-up",`Level:${this.props.gameStat.level+1}`,"Next Level",this.levelUp,true,true)
+				} else {
+						this.props.scoreUp();
+						this.props.counterUp();
+				}
+		}
+		if (this.props.questionList.length === 0){
+				this.props.showAlert("fas fa-skull-crossbones","GAME OVER!","Restart Game",this.newGame,true,false)
+		}
+	}
 
-        }   else {
+	newGame = () => {
+		this.props.resetGameStats()
+		this.props.emptyQuestionList()
+		this.props.genQuestionMix(1, 5)
+	}
 
-            this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
-            if( this.props.gameStat.counter+1 === 3){
-                // this.props.getNewQuestions(this.props.gameStat.level, 5);
-                this.props.resetCounter();
-                this.props.levelUp();
-                this.props.scoreUp()
-                this.props.showAlert("fas fa-arrow-circle-up",`Level:${this.props.gameStat.level+1}`,"Next Question",this.props.nextQuestion,true,true)
-            } else {
-                this.props.scoreUp();
-                this.props.counterUp();
-            }
-        }
-        if (this.props.questionList.length === 0){
-            this.props.showAlert("fas fa-skull-crossbones","GAME OVER!","Restart Game",this.props.resetGameStats,true,false)
-            this.props.getNewQuestions(0, 5)
-        }
-    }
+	levelUp = () => {
+		this.props.emptyQuestionList()
+		this.props.genQuestionMix(this.props.gameStat.level, 5)
+		this.props.resetCounter()
+		this.props.levelUp()
+		this.props.scoreUp()
+	}
 
   
     render(){ 
-        //let answers = this.generateOptions();
-        
-        if(this.props.currentQuestion) {
+        let currentQuestion = this.props.currentQuestion
+        const opt1 = currentQuestion.option1
+        const opt2 = currentQuestion.option2
+        const opt3 = currentQuestion.option3
+        const options = shuffle([opt1, opt2, opt3])
 
-            let currentQuestion = this.props.currentQuestion
-            const opt1 = currentQuestion.option1
-            const opt2 = currentQuestion.option2
-            const opt3 = currentQuestion.option3
-            const options = shuffle([opt1, opt2, opt3])
-
-            if (currentQuestion.type === 1){
-                return (  
-                    <div className="optionsContainer">
-                        <OptionComponents  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]}/>
-                        <OptionComponents  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]}/>
-                        <OptionComponents  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]}/>
-                    </div>
-                )
-            }else{
-                return (  
-                    <div className="optionImageComponent">
-                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]}/>
-                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]}/>
-                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]}/>
-                    </div>
-                )
-            }
-        } else {
-            return (<div>Loading...</div>)
+        if (currentQuestion.type === 1){
+            return (  
+							<div className="optionsContainer">
+									{options.map((option) => <OptionComponents key={option} onClick={() => {this.checkAnswer(option)}} breed={option}/>)} 
+							</div>
+            )
         }
-        
-    }
+
+        return (  
+					<div className="optionImageComponent">
+							{options.map((option) => <OptionImageComponent  onClick={() => {this.checkAnswer(option)}} breed={option}/>)} 
+					</div>
+        )
+    } 
 }
+
         
 //         const keyboardEvent = (event) => {
 //             console.log(event)
@@ -128,5 +106,16 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, genQuestionMix,nextQuestion,resetGameStats,showAlert })(OptionContainer)
+export default connect(mapStateToProps, {
+	resetCounter, 
+	scoreUp, 
+	counterUp, 
+	levelUp, 
+	loseCounterUp, 
+	genQuestionMix,
+	nextQuestion,
+	resetGameStats,
+	showAlert,
+	emptyQuestionList 
+})(OptionContainer)
 
