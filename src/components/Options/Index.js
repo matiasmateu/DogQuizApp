@@ -36,8 +36,8 @@ class OptionContainer extends Component{
         }   else {
 
             this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
-            if( this.props.gameStat.counter === 3){
-                this.props.getNewQuestions(this.props.gameStat.level, 5);
+            if( this.props.gameStat.counter+1 === 3){
+                // this.props.getNewQuestions(this.props.gameStat.level, 5);
                 this.props.resetCounter();
                 this.props.levelUp();
                 this.props.scoreUp()
