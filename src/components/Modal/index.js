@@ -24,13 +24,10 @@ class MessageModal extends Component {
   }
 
   closeModal = () => {
-    console.log(this.state)
-    setTimeout(()=> {
-      this.setState({display: false});
-    }, 2000)
+    // this.props.hideAlert()
   };
 
-  
+
   openModal = () => {
     
   }

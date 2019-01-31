@@ -6,8 +6,8 @@ import { genQuestionMix, nextQuestion } from '../../actions/questions'
 import {showAlert} from '../../actions/message'
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import shuffle from '../../tools/ArrayShuffle'
-import {questionOneExample} from '../../reducers/questions'
-import {questionTwoExample} from '../../reducers/questions'
+// import {questionOneExample} from '../../reducers/questions'
+// import {questionTwoExample} from '../../reducers/questions'
 import OptionImageComponent from './OptionImageComponent';
 
 
@@ -31,7 +31,7 @@ class OptionContainer extends Component{
 
 
     checkAnswer = (value) =>{
-        console.log('CHECK_ANSWE', value)
+        // console.log('CHECK_ANSWE', value)
 
        
         if( value !== this.props.currentQuestion.option1) {
@@ -73,18 +73,18 @@ class OptionContainer extends Component{
             const options = shuffle([opt1, opt2, opt3])
 
             const keyboardEvent = (event) => {
-                console.log(event)
+                // console.log(event)
                 switch(event) {
                     case "a":
-                    console.log(options[0])
+                    // console.log(options[0])
                       this.checkAnswer(options[0])
                       break;
                     case "b":
-                    console.log(options[1])
+                    // console.log(options[1])
                       this.checkAnswer(options[1])
                       break;
                     case "c":
-                    console.log(options[2])
+                    // console.log(options[2])
                      this.checkAnswer(options[2])
                      break;
                     default:
@@ -120,7 +120,7 @@ class OptionContainer extends Component{
         
 
 const mapStateToProps = (state) => {
-    console.log(state, 'STATE')
+    // console.log(state, 'STATE')
     return {
         breeds : state.breeds,
         currentQuestion : state.questions.currentQuestion,
