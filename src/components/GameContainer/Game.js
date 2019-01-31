@@ -8,7 +8,6 @@ import {questionOneExample} from '../../reducers/questions'
 import {questionTwoExample} from '../../reducers/questions'
 
 export default (props) => {
-  console.log(props, 'PROPS')
   const { currentQuestion } = props
   if(currentQuestion) {
     return (

@@ -4,6 +4,7 @@ export const CHECK_ANSWER = 'CHECK_ANSWER'
 export const SET_QUESTIONS = 'SET_QUESTIONS'
 export const NEXT_QUESTION = 'NEXT_QUESTION'
 export const UPDATE_BREEDS = 'UPDATE_BREEDS'
+export const REMOVE_BREED = 'REMOVE_BREED'
 
 export const setQuestionList = (questions) => {
   return {
@@ -18,6 +19,19 @@ export const nextQuestion = () => {
   }
 }
 
+export const updateBreeds = (breeds) => {
+  return {
+    type: UPDATE_BREEDS,
+    payload:breeds
+  }
+}
+
+export const removeBreed = (breed) => {
+  return {
+    type: REMOVE_BREED,
+    payload:breed
+  }
+}
 
 /* @breed {String} is used to fetch data from API
  *  return Promise{Image of breed} 
@@ -54,7 +68,8 @@ export const genQuestionMix = (level, maxQuestions) => {
 
     fetchBreeds(level).then(async breeds => {
       let questionMix = [];
-
+      // Updating the redux state of questions-breeds
+      dispatch(updateBreeds(breeds))
       for (let breed of breeds) {
 
         for (let index = 0; index < maxQuestions; index++) {

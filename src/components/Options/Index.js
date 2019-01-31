@@ -9,6 +9,7 @@ import shuffle from '../../tools/ArrayShuffle'
 import {questionOneExample} from '../../reducers/questions'
 import {questionTwoExample} from '../../reducers/questions'
 import OptionImageComponent from './OptionImageComponent';
+import {removeBreed} from '../../actions/questions'
 
 
 class OptionContainer extends Component{
@@ -31,9 +32,12 @@ class OptionContainer extends Component{
 
 
     checkAnswer = (value) =>{
-        console.log('CHECK_ANSWE', value)
+        // REMOVE BREED FROM BREED ARRAY
+        if (this.props.currentQuestion.type===1){
+            this.props.removeBreed(this.props.currentQuestion.option1)
+        }
+        
 
-       
         if( value !== this.props.currentQuestion.option1) {
 
             this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentAnswer}. ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
@@ -71,21 +75,28 @@ class OptionContainer extends Component{
             const opt2 = currentQuestion.option2
             const opt3 = currentQuestion.option3
             const options = shuffle([opt1, opt2, opt3])
+            let hint = false
 
             if (currentQuestion.type===1){
+                if (this.props.breeds.indexOf(this.props.currentQuestion.option1)>-1){
+                    hint = true
+                }else{
+                    hint = false
+                }
+                
                 return (  
                     <div className="optionsContainer">
-                        <OptionComponents  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]}/>
-                        <OptionComponents  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]}/>
-                        <OptionComponents  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]}/>
+                        <OptionComponents  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]} correct={this.props.currentQuestion.option1} hint={hint}/>
+                        <OptionComponents  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]} correct={this.props.currentQuestion.option1} hint={hint}/>
+                        <OptionComponents  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]} correct={this.props.currentQuestion.option1} hint={hint}/>
                     </div>
                 )
             }else{
                 return (  
                     <div className="optionsContainer">
-                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]}/>
-                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]}/>
-                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]}/>
+                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]} correct={this.props.currentQuestion.option1} hint={hint}/>
+                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]} correct={this.props.currentQuestion.option1} hint={hint}/>
+                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]} correct={this.props.currentQuestion.option1} hint={hint}/>
                     </div>
                 )
             }
@@ -95,7 +106,7 @@ class OptionContainer extends Component{
         
     }
 }
-        
+    
 //         const keyboardEvent = (event) => {
 //             console.log(event)
 //             switch(event) {
@@ -120,14 +131,13 @@ class OptionContainer extends Component{
 //<KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
 
 const mapStateToProps = (state) => {
-    console.log(state, 'STATE')
     return {
-        breeds : state.breeds,
+        breeds : state.questions.breeds,
         currentQuestion : state.questions.currentQuestion,
         gameStat: state.gameStat,
         questionList : state.questions.questionList
     }
 }
 
-export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, genQuestionMix,nextQuestion,resetGameStats,showAlert })(OptionContainer)
+export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, genQuestionMix,nextQuestion,resetGameStats,showAlert,removeBreed })(OptionContainer)
 
