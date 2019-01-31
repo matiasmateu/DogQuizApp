@@ -1,15 +1,17 @@
-import React, { Component} from 'react'
+import React from 'react'
+import './OptionContainer.css'
 
-
-class OptionComponents extends Component{
-    render(){
-        return(
-            <div onClick={this.props.onclick} className=" optionComponents">  
-                <button type="button" class="btn btn-outline-dark">{this.props.breed}</button>
-            </div>
-        )
+export default (props) => {
+    let style = ""
+    if((props.correct===props.breed) && (props.hint)){
+         style = "hint btn btn-outline-dark"
+    }else{
+         style = "btn btn-outline-dark"
     }
+    return(
+        <div onClick={props.onClick} className=" optionComponents">  
+            <button type="button" className={style}>{props.breed}</button>
+            <span>{props.index+1}</span>
+        </div>
+    ) 
 }
-
-
-export default OptionComponents

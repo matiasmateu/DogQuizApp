@@ -1,17 +1,17 @@
 import shuffle from '../tools/ArrayShuffle'
-
 import {
   CHECK_ANSWER,
   SET_QUESTIONS,
-  NEXT_QUESTION
+  NEXT_QUESTION,
+  EMPTY_LIST,
+  UPDATE_BREEDS,
+  ADD_BREED
 } from '../actions/questions'
 
 const initialState = {
   questionList: [],
-  currentQuestion: {
-    question: "https://images.dog.ceo/breeds/cockapoo/bubbles2.jpg",
-    correctAnswer: "Cockapoo"
-  }
+  currentQuestion: null,
+  breeds:[]
 }
 
 export default (state = initialState, action = {}) => {
@@ -20,17 +20,31 @@ export default (state = initialState, action = {}) => {
       return state
     case SET_QUESTIONS:
       return {
+        ...state,
         questionList: shuffle(action.payload.slice(1)),
-        currentQuestion: { ...action.payload[0]
-        }
+        currentQuestion: { ...action.payload[0] }
       }
-      //      return { ...state, questionList: [...action.payload] }
     case NEXT_QUESTION:
       return {
+        ...state,
         questionList: state.questionList.slice(1),
-        currentQuestion: { ...state.questionList[0]
+        currentQuestion: { ...state.questionList[0] }
+      }
+    case EMPTY_LIST:
+      return {
+        ...state,
+        questionList: [],
+        currentQuestion: null
+      }
+    
+      case ADD_BREED:
+      if(state.breeds.indexOf(action.payload) === -1) {
+        return {
+          ...state,
+          breeds :  [...state.breeds,(action.payload)]
         }
       }
+      return state
     default:
       return state
   }
