@@ -6,28 +6,19 @@ import { nextQuestion, genQuestionMix } from '../../actions/questions'
 
 
 class GameContainer extends Component{
+  componentDidMount() {
+      this.props.genQuestionMix(this.props.gameStat.level, 3)
+  }
 
-    state = {
-        maxQuestionPerBreed: 3
-    }
-
-    componentDidMount() {
-        this.props.genQuestionMix(this.props.gameStat.level, 5)
-    }
-
-    onNextQuestion = () => {
-        this.props.nextQuestion()
-    }
-
-    render(){ 
-        return (<Game currentQuestion = {this.props.currentQuestion} handleNextQuestion={this.onNextQuestion}/>)
-    }
+  render(){ 
+      return (<Game currentQuestion ={this.props.currentQuestion}/>)
+  }
 }
 
 const mapStateToProps = (state) => {
     return {
-        currentQuestion: state.questions.currentQuestion,
-        gameStat: state.gameStat
+      currentQuestion: state.questions.currentQuestion,
+      gameStat: state.gameStat
     }
 }
 

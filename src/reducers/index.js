@@ -5,7 +5,6 @@ import gameStat from './gameStat'
 import message from './message'
 
 export default combineReducers({
-    breeds,
     questions,
     gameStat,
     message

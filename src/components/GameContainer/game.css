@@ -2,6 +2,7 @@
   margin:auto;
   text-align: center;
   display: flex;
+  flex-direction: column;
   margin-top:24px;
   margin-bottom:24px;
 }
@@ -14,4 +15,14 @@
 
 .main-question{
   text-align: center;
+}
+
+.card-text {
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  margin-top: 1rem;
+  font-family: 'Righteous';
 }
