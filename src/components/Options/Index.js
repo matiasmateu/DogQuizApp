@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import OptionComponents from './OptionComponents'
 import { connect } from 'react-redux'
 import { resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, resetGameStats } from '../../actions/gameStat'
-import { getNewQuestions,nextQuestion } from '../../actions/questions'
+import { genQuestionMix, nextQuestion } from '../../actions/questions'
 import {showAlert} from '../../actions/message'
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import shuffle from '../../tools/ArrayShuffle'
@@ -95,5 +95,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, getNewQuestions,nextQuestion,resetGameStats,showAlert })(OptionContainer)
+export default connect(mapStateToProps, {resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, genQuestionMix,nextQuestion,resetGameStats,showAlert })(OptionContainer)
 

@@ -5,7 +5,7 @@ class OptionComponents extends Component{
     render(){
         return(
             <div onClick={this.props.onclick} className=" optionComponents">  
-                <button type="button" class="btn btn-outline-dark">{this.props.breed}</button>
+                <button type="button" className="btn btn-outline-dark">{this.props.breed}</button>
             </div>
         )
     }
