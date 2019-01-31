@@ -21,32 +21,50 @@ const customStyles = {
 
 class MessageModal extends Component {
   state = {
-    displayButton: false
+    displayButton: false,
+    stop:false
   }
 
 
-  clickHandler = () => {
+  close = () => {
     this.props.message.action()
     this.props.hideAlert()
   }
 
+  close2 = (f1) => {
+    f1()
+    this.props.hideAlert();
+  }
+
+  timer(){
+    setTimeout(() => {
+      this.close2(this.close)
+    }, 2000)
+  }
+
   render() {
-    return (
-      <div>
-        <Modal
-          ariaHideApp={false}
-          isOpen={this.props.message.display}
-          onRequestClose={this.closeModal}
-          contentLabel="Message"
-          style={customStyles}
-        >
-          <i className={this.props.message.icon+" icon"}></i>
-          <h2>{this.props.message.message}</h2>
-          <button onClick={this.clickHandler}>{this.props.message.buttonText}</button>
-          {this.props.message.loader &&  <Loader/>}
-        </Modal>
-      </div>
-    )
+    if(this.props.message.display){
+      return (
+        <div>
+          <Modal
+            ariaHideApp={false}
+            isOpen={this.props.message.display}
+            onRequestClose={this.closeModal}
+            contentLabel="Message"
+            style={customStyles}
+          >
+            <i className={this.props.message.icon+" icon"}></i>
+            <h2>{this.props.message.message}</h2>
+            {//<button onClick={this.close}>{this.props.message.buttonText}</button>
+            }
+            {this.props.message.loader &&  <Loader/>}
+            {this.timer()}
+          </Modal>
+        </div>
+      )
+    }else{
+      return<div></div>
+    }
   }
 }
 
