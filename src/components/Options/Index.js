@@ -24,13 +24,13 @@ checkAnswer = (value) =>{
 
 		if( value !== this.props.currentQuestion.option1) {
             if(this.props.currentQuestion.type === 2) {
-                this.props.showAlert("fas fa-times-circle",`Wrong!, the correct answer is:`,"Next Question",this.props.nextQuestion,true, false, this.props.currentQuestion.option1)
+                this.props.showAlert("fas fa-times-circle",`Wrong!, the correct answer is:`,"Next Question",this.props.nextQuestion,true, true, this.props.currentQuestion.option1)
             } else {
                 this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${this.props.currentQuestion.option1}.`,"Next Question",this.props.nextQuestion,true)
             }
 
             this.props.loseCounterUp();
-            this.props.resetCounter();
+            this.props.resetCounter()
 
 		}   else {
 				this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
