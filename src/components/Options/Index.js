@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, resetGameStats } from '../../actions/gameStat'
 import { genQuestionMix, nextQuestion } from '../../actions/questions'
 import {showAlert} from '../../actions/message'
-import KeyboardEventHandler from 'react-keyboard-event-handler';
+//import KeyboardEventHandler from 'react-keyboard-event-handler';
 import shuffle from '../../tools/ArrayShuffle'
 import {questionOneExample} from '../../reducers/questions'
 import {questionTwoExample} from '../../reducers/questions'
@@ -58,9 +58,8 @@ class OptionContainer extends Component{
 
   
     render(){ 
-        let answers = this.generateOptions();
-
-        let currentQuestion = questionOneExample
+        //let answers = this.generateOptions();
+        let currentQuestion = this.props.currentQuestion
         if (currentQuestion.type===2){
             return (  
                 <div className="optionsContainer">
@@ -107,8 +106,8 @@ class OptionContainer extends Component{
 const mapStateToProps = (state) => {
     return {
         breeds : state.breeds,
-        currentAnswer : state.questions.currentQuestion.correctAnswer,
-        currentQuestion : state.questions.currentQuestion.question,
+        currentAnswer : questionTwoExample,
+        currentQuestion : questionOneExample,
         gameStat: state.gameStat,
         questionList : state.questions.questionList
     }
