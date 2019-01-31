@@ -3,6 +3,8 @@ import {
   CHECK_ANSWER,
   SET_QUESTIONS,
   NEXT_QUESTION,
+  UPDATE_BREEDS,
+  REMOVE_BREED
 } from '../actions/questions'
 
 // USED ONLY FOR CHECKS 
@@ -25,6 +27,7 @@ export const questionTwoExample = {
 const initialState = {
   questionList: [],
   currentQuestion: null,
+  breeds:[]
 }
 
 export default (state = initialState, action = {}) => {
@@ -43,6 +46,17 @@ export default (state = initialState, action = {}) => {
         questionList: state.questionList.slice(1),
         currentQuestion: { ...state.questionList[0] }
       }
+    case UPDATE_BREEDS:
+      return {
+        ...state,
+        breeds : action.payload
+      }
+      case REMOVE_BREED:
+      return {
+        ...state,
+        breeds :  [...state.breeds.filter(elem=>elem!==action.payload)]
+      }
+
     default:
       return state
   }
