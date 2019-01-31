@@ -6,11 +6,9 @@ import Modal from '../Modal';
 import InfoContainer from '../Info/InfoContainer';
 import Loader from '../Loader';
 import './game.css'
+import Loader from '../Loader';
+import './game.css'
 
-
-// You can see a picture of a dog, try to guess the breed among the three choices. 
-// After three right guesses you will go to the next level.
-//  
 
 export default (props) => {
   const { currentQuestion } = props

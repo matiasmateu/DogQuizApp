@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ScoreBoard from './ScoreBoard'
 import './HeaderContainer.css'
 import { connect } from 'react-redux'
+import InfoContainer from '../Info/InfoContainer';
 
 class HeaderContainer extends Component{
     render(){
@@ -13,6 +14,9 @@ class HeaderContainer extends Component{
             </div>
             <div className='score-container'>
                 <ScoreBoard stats={this.props.stats} />
+            </div>
+            <div>
+            <InfoContainer />
             </div>
              
         </header>

@@ -36,10 +36,10 @@ class MessageModal extends Component {
     this.props.hideAlert();
   }
 
-  timer(){
-    setTimeout(() => {
-      this.close2(this.close)
-    }, 2000)
+
+  clickHandler = () => {
+    // this.props.message.action()
+    this.props.hideAlert()
   }
 
   render() {
@@ -65,6 +65,7 @@ class MessageModal extends Component {
     }else{
       return<div></div>
     }
+
   }
 }
 
