@@ -12,8 +12,6 @@ import './game.css'
 // After three right guesses you will go to the next level.
 //  
 
-
-
 export default (props) => {
   const { currentQuestion } = props
 
