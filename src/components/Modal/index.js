@@ -24,14 +24,6 @@ class MessageModal extends Component {
     displayButton: false
   }
 
-  closeModal = () => {
-    
-  };
-
-
-  openModal = () => {
-    
-  }
 
   clickHandler = () => {
     this.props.message.action()
@@ -39,7 +31,6 @@ class MessageModal extends Component {
   }
 
   render() {
-    if (this.props.message.loader){ 
     return (
       <div>
         <Modal
