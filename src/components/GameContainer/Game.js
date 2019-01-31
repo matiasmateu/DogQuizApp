@@ -11,7 +11,8 @@ export default (props) => {
     <section className="game">
         <HeaderContainer />
         <CardPicture dogPicture={props.question}/>
-        <OptionContainer />
+        {/* <OptionContainer /> */}
+        
         <Modal/>
     </section> 
   )

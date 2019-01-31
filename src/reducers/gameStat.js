@@ -6,7 +6,6 @@ const initialState = {
   counter: 0,
   winCounter: 0,
   loseCounter: 0,
-  // winPercentage: winCounter / loseCounter;
 }
 
 export default (state= initialState, action={}) => {
