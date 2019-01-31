@@ -24,12 +24,22 @@ class MessageModal extends Component {
     displayButton: false
   }
 
+  closeModal = () => {
+    
+  };
+
+
+  openModal = () => {
+    
+  }
+
   clickHandler = () => {
     this.props.message.action()
     this.props.hideAlert()
   }
 
   render() {
+    if (this.props.message.loader){ 
     return (
       <div>
         <Modal
