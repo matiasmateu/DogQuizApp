@@ -22,7 +22,6 @@ export const nextQuestion = () => {
 * returns an action and updates the state with the new questions.
 */
 export const getNewQuestions = (level, maxQuestionPerBreed) =>{  
-  console.log(genQuestionMix(3, 10))
   return async (dispatch) => {
     const currentLevel = level + 1
     const totalBreed = currentLevel * 3

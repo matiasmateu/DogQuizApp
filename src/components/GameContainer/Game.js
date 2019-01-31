@@ -4,13 +4,14 @@ import HeaderContainer from '../Header/Index'
 import './game.css'
 import OptionContainer from '../Options/Index'
 import Modal from '../Modal';
-
+import {questionOneExample} from '../../reducers/questions'
+import {questionTwoExample} from '../../reducers/questions'
 
 export default (props) => {
   return (
     <section className="game">
         <HeaderContainer />
-        <CardPicture dogPicture={props.question}/>
+        <CardPicture currentQuestion={questionOneExample}/>
         <OptionContainer />
         <Modal/>
     </section> 

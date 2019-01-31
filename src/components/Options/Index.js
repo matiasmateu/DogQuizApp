@@ -5,6 +5,9 @@ import { resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, resetGameStat
 import { getNewQuestions,nextQuestion } from '../../actions/questions'
 import {showAlert} from '../../actions/message'
 import shuffle from '../../tools/ArrayShuffle'
+import {questionOneExample} from '../../reducers/questions'
+import {questionTwoExample} from '../../reducers/questions'
+import OptionImageComponent from './OptionImageComponent';
 
 
 class OptionContainer extends Component{
@@ -59,14 +62,29 @@ class OptionContainer extends Component{
 
     render(){ 
         let answers = this.generateOptions();
-        return (  
-        <div className="optionsContainer">
-                <OptionComponents onclick={() => this.checkAnswer(answers[0])} breed={answers[0]}/>
-                <OptionComponents onclick={() => this.checkAnswer(answers[1])} breed={answers[1]}/>
-                <OptionComponents onclick={() => this.checkAnswer(answers[2])} breed={answers[2]}/>
-        </div>
-    )}
+        let currentQuestion = questionOneExample
+        if (currentQuestion.type===2){
+            return (  
+                <div className="optionsContainer">
+                    <OptionComponents  breed={currentQuestion.option1}/>
+                    <OptionComponents  breed={currentQuestion.option2}/>
+                    <OptionComponents  breed={currentQuestion.option3}/>
+                </div>
+            )
+        }else{
+            return (  
+                <div className="optionsContainer">
+                    <OptionImageComponent  breed={currentQuestion.option1}/>
+                    <OptionImageComponent  breed={currentQuestion.option2}/>
+                    <OptionImageComponent  breed={currentQuestion.option3}/>
+                </div>
+            )
+        }
+    }
 }
+
+// <OptionComponents onclick={() => this.checkAnswer(answers[0])} breed={currentQuestion.option1}/>
+
 
 const mapStateToProps = (state) => {
     return {
