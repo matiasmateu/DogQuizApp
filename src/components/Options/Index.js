@@ -63,55 +63,29 @@ checkAnswer = (value) =>{
         const opt2 = currentQuestion.option2
         const opt3 = currentQuestion.option3
         const options = shuffle([opt1, opt2, opt3])
+        let hint = false
 
         if (currentQuestion.type === 1){
-            return (  
-							<div className="optionsContainer">
-									{options.map((option) => <OptionComponents key={option} onClick={() => {this.checkAnswer(option)}} breed={option}/>)} 
-							</div>
-            )
-        //let answers = this.generateOptions();
-        
-        if(this.props.currentQuestion) {
-
-            let currentQuestion = this.props.currentQuestion
-            const opt1 = currentQuestion.option1
-            const opt2 = currentQuestion.option2
-            const opt3 = currentQuestion.option3
-            const options = shuffle([opt1, opt2, opt3])
-            let hint = false
-
-            if (currentQuestion.type===1){
-                if (this.props.breeds.indexOf(this.props.currentQuestion.option1)>-1){
-                    hint = true
-                }else{
-                    hint = false
-                }
-                
-                return (  
-                    <div className="optionsContainer">
-                        <OptionComponents  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]} correct={this.props.currentQuestion.option1} hint={hint}/>
-                        <OptionComponents  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]} correct={this.props.currentQuestion.option1} hint={hint}/>
-                        <OptionComponents  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]} correct={this.props.currentQuestion.option1} hint={hint}/>
-                    </div>
-                )
+            if (this.props.breeds.indexOf(this.props.currentQuestion.option1)>-1){
+                hint = true
             }else{
-                return (  
-                    <div className="optionsContainer">
-                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]} correct={this.props.currentQuestion.option1} hint={hint}/>
-                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]} correct={this.props.currentQuestion.option1} hint={hint}/>
-                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]} correct={this.props.currentQuestion.option1} hint={hint}/>
-                    </div>
-                )
+                hint = false
             }
-        } else {
-            return (<div>Loading...</div>)
+
+            console.log(hint, 'HINT')
+
+            return (  
+                <div className="optionsContainer">
+                    {options.map((option) => <OptionComponents correct={opt1} key={option} onClick={() => {this.checkAnswer(option)}} breed={option} hint={hint}/>)} 
+                </div>
+            )
         }
+     
 
         return (  
-					<div className="optionImageComponent">
-							{options.map((option) => <OptionImageComponent  onClick={() => {this.checkAnswer(option)}} breed={option}/>)} 
-					</div>
+            <div className="optionImageComponent">
+                {options.map((option) => <OptionImageComponent  onClick={() => {this.checkAnswer(option)}} breed={option}/>)} 
+            </div>
         )
     } 
 }
