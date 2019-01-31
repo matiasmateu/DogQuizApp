@@ -5,7 +5,7 @@ export const SET_QUESTIONS = 'SET_QUESTIONS'
 export const NEXT_QUESTION = 'NEXT_QUESTION'
 export const UPDATE_BREEDS = 'UPDATE_BREEDS'
 export const EMPTY_LIST = 'EMPTY_LIST'
-export const REMOVE_BREED = 'REMOVE_BREED'
+export const ADD_BREED = 'ADD_BREED'
 
 export const setQuestionList = (questions) => {
   return {
@@ -27,9 +27,9 @@ export const updateBreeds = (breeds) => {
   }
 }
 
-export const removeBreed = (breed) => {
+export const addBreedToHistory = (breed) => {
   return {
-    type: REMOVE_BREED,
+    type: ADD_BREED,
     payload:breed
   }
 }
