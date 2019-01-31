@@ -11,6 +11,7 @@ export default (props) => {
     return(
         <div onClick={props.onClick} className=" optionComponents">  
             <button type="button" className={style}>{props.breed}</button>
+            <span>{props.index+1}</span>
         </div>
     ) 
 }

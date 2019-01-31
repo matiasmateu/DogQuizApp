@@ -79,15 +79,15 @@ checkAnswer = (value) =>{
         const keyboardEvent = (event) => {
                 // console.log(event)
                 switch(event) {
-                    case "a":
+                    case "1":
                     // console.log(options[0])
                       this.checkAnswer(options[0])
                       break;
-                    case "b":
+                    case "2":
                     // console.log(options[1])
                       this.checkAnswer(options[1])
                       break;
-                    case "c":
+                    case "3":
                     // console.log(options[2])
                      this.checkAnswer(options[2])
                      break;
@@ -108,8 +108,8 @@ checkAnswer = (value) =>{
 
             return (  
                 <div className="optionsContainer">
-                    <KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
-                    {options.map((option) => <OptionComponents correct={opt1} key={option} onClick={() => {this.checkAnswer(option)}} breed={option} hint={hint}/>)} 
+                    <KeyboardEventHandler handleKeys={['1', '2', '3']} onKeyEvent={(key, e) => keyboardEvent(key)} />
+                    {options.map((option,i) => <OptionComponents correct={opt1} key={option} onClick={() => {this.checkAnswer(option)}} index={i} breed={option} hint={hint}/>)} 
                 </div>
             )
         }else {
@@ -121,16 +121,12 @@ checkAnswer = (value) =>{
                 hint = true
             }
     
-            return (  
-                <div className="optionImageComponent">
-                    <KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
-                    {options.map((option) => <OptionImageComponent key={option} correct={opt1} onClick={() => {this.checkAnswer(option)}} breed={option} hint={hint}/>)} 
-                </div>
-            )
-        }
-     
-
-        
+         return (  
+            <div className="optionImageComponent">
+                <KeyboardEventHandler handleKeys={['1', '2', '3']} onKeyEvent={(key, e) => keyboardEvent(key)} />
+                {options.map((option,i) => <OptionImageComponent  onClick={() => {this.checkAnswer(option)}} index={i} breed={option}/>)} 
+            </div>
+        )
     } 
 }
 

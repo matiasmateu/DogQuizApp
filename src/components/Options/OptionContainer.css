@@ -58,6 +58,11 @@
     }
 }
 
+.image-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
 .optionComponents {
     border: solid 1px black;
@@ -65,6 +70,21 @@
     
 }
 
+.optionComponents span{
+    padding: 5px;
+}
+
+
 .hint{
     background-color: #F45C43!important;
+}
+
+.index-images{
+    padding:5px;
+    padding-left:10px;
+    padding-right:10px;
+    background-color: white;
+    border: black solid 1px;
+    position: absolute;
+    bottom:0;
 }
