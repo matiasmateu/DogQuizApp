@@ -10,7 +10,7 @@ export default (props) => {
     )
   }else{
     return (
-    <div className='card-picture'>
+    <div className='card-text'>
         <h1 className="main-question">{props.question}</h1>
     </div>
     )
