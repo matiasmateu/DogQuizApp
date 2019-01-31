@@ -3,12 +3,15 @@ import {
   CHECK_ANSWER,
   SET_QUESTIONS,
   NEXT_QUESTION,
-  EMPTY_LIST
+  EMPTY_LIST,
+  UPDATE_BREEDS,
+  REMOVE_BREED
 } from '../actions/questions'
 
 const initialState = {
   questionList: [],
   currentQuestion: null,
+  breeds:[]
 }
 
 export default (state = initialState, action = {}) => {
@@ -32,6 +35,16 @@ export default (state = initialState, action = {}) => {
         ...state,
         questionList: [],
         currentQuestion: null
+      }
+    case UPDATE_BREEDS:
+      return {
+        ...state,
+        breeds : action.payload
+      }
+      case REMOVE_BREED:
+      return {
+        ...state,
+        breeds :  [...state.breeds.filter(elem=>elem!==action.payload)]
       }
     default:
       return state

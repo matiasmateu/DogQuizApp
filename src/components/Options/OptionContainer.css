@@ -53,4 +53,13 @@
         margin-left: 20%;
     }
 
+
+.optionComponents {
+    border: solid 1px black;
+    border-radius: 5px;
+    
+}
+
+.hint{
+    background-color: #F45C43!important;
 }

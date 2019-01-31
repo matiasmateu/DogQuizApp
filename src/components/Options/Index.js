@@ -8,11 +8,18 @@ import {showAlert} from '../../actions/message'
 import shuffle from '../../tools/ArrayShuffle'
 import OptionImageComponent from './OptionImageComponent';
 import './OptionContainer.css'
+import {removeBreed} from '../../actions/questions'
 
 
 class OptionContainer extends Component{
 
-	checkAnswer = (value) =>{
+   
+checkAnswer = (value) =>{
+  
+  // REMOVE BREED FROM BREED ARRAY
+    if (this.props.currentQuestion.type===1){
+       this.props.removeBreed(this.props.currentQuestion.option1)
+    }
 		if( value !== this.props.currentQuestion.option1) {
 
 			this.props.showAlert("fas fa-times-circle",`Wrong!, the correct answer is ${this.props.currentAnswer}. ${this.props.questionList.length} questions left`,"Next Question",this.props.nextQuestion,true)
@@ -20,8 +27,8 @@ class OptionContainer extends Component{
 			this.props.resetCounter()
 
 		}   else {
-
 				this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
+				
 				if( this.props.gameStat.counter+1 === 3){
 						this.props.showAlert("fas fa-arrow-circle-up",`Level:${this.props.gameStat.level+1}`,"Next Level",this.levelUp,true,true)
 				} else {
@@ -50,6 +57,7 @@ class OptionContainer extends Component{
 
   
     render(){ 
+
         let currentQuestion = this.props.currentQuestion
         const opt1 = currentQuestion.option1
         const opt2 = currentQuestion.option2
@@ -62,6 +70,42 @@ class OptionContainer extends Component{
 									{options.map((option) => <OptionComponents key={option} onClick={() => {this.checkAnswer(option)}} breed={option}/>)} 
 							</div>
             )
+        //let answers = this.generateOptions();
+        
+        if(this.props.currentQuestion) {
+
+            let currentQuestion = this.props.currentQuestion
+            const opt1 = currentQuestion.option1
+            const opt2 = currentQuestion.option2
+            const opt3 = currentQuestion.option3
+            const options = shuffle([opt1, opt2, opt3])
+            let hint = false
+
+            if (currentQuestion.type===1){
+                if (this.props.breeds.indexOf(this.props.currentQuestion.option1)>-1){
+                    hint = true
+                }else{
+                    hint = false
+                }
+                
+                return (  
+                    <div className="optionsContainer">
+                        <OptionComponents  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]} correct={this.props.currentQuestion.option1} hint={hint}/>
+                        <OptionComponents  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]} correct={this.props.currentQuestion.option1} hint={hint}/>
+                        <OptionComponents  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]} correct={this.props.currentQuestion.option1} hint={hint}/>
+                    </div>
+                )
+            }else{
+                return (  
+                    <div className="optionsContainer">
+                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[0])}} breed={options[0]} correct={this.props.currentQuestion.option1} hint={hint}/>
+                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[1])}} breed={options[1]} correct={this.props.currentQuestion.option1} hint={hint}/>
+                        <OptionImageComponent  onClick={() => {this.checkAnswer(options[2])}} breed={options[2]} correct={this.props.currentQuestion.option1} hint={hint}/>
+                    </div>
+                )
+            }
+        } else {
+            return (<div>Loading...</div>)
         }
 
         return (  
@@ -72,7 +116,6 @@ class OptionContainer extends Component{
     } 
 }
 
-        
 //         const keyboardEvent = (event) => {
 //             console.log(event)
 //             switch(event) {
@@ -97,9 +140,8 @@ class OptionContainer extends Component{
 //<KeyboardEventHandler handleKeys={['a', 'b', 'c']} onKeyEvent={(key, e) => keyboardEvent(key)} />
 
 const mapStateToProps = (state) => {
-    console.log(state, 'STATE')
     return {
-        breeds : state.breeds,
+        breeds : state.questions.breeds,
         currentQuestion : state.questions.currentQuestion,
         gameStat: state.gameStat,
         questionList : state.questions.questionList
@@ -116,6 +158,8 @@ export default connect(mapStateToProps, {
 	nextQuestion,
 	resetGameStats,
 	showAlert,
-	emptyQuestionList 
+	emptyQuestionList,
+  removeBreed
 })(OptionContainer)
+
 
