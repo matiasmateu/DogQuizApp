@@ -51,14 +51,3 @@ export const resetGameStats = () => {
 
   }
 }
-
-
-/*
-const getBreeds = (totalBreed) => {
-  axios.get('https://dog.ceo/api/breeds/list/all').then( async (result) => {
-    const breeds = Object.keys(result.data.message).slice(0, totalBreed)
-    const questions = await this.getQuestionList(breeds)
-    console.log(questions, '<=== QUESTIONS')
-  })
-}
-*/

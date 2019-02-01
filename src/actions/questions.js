@@ -71,8 +71,6 @@ const fetchBreeds = async (level) => {
  */
 export const genQuestionMix = (level, maxQuestions) => {
 
-  const maxQuestion = 25;
-
   return async (dispatch) => {
 
     fetchBreeds(level).then(async breeds => {
@@ -83,7 +81,7 @@ export const genQuestionMix = (level, maxQuestions) => {
       let questionMix = [];
 
       // Fetching a total of questions: maxQuestion
-      for(let tot = 0; tot < maxQuestion; tot++) {
+      for(let tot = 0; tot < maxQuestions; tot++) {
         const correctAnswer = shuffleArray(breeds)[0]
         const wrongAnswers = breeds.filter((breed) => breed !== correctAnswer)
 
@@ -110,14 +108,12 @@ export const genQuestionMix = (level, maxQuestions) => {
 
 const genQuestionTypeOne = async (correctAnswer, wrongAnswers) => {
   const image = await fetchImage(correctAnswer)
-  const shuffledWrongAnswers = shuffleArray([...wrongAnswers])
-
+  const shuffledOptions = shuffleArray([correctAnswer, wrongAnswers[0], wrongAnswers[1]])
   return {
     type: 1,
     question: image,
-    option1: correctAnswer,
-    option2: shuffledWrongAnswers[0],
-    option3: shuffledWrongAnswers[1]
+    correctAnswer: correctAnswer,
+    options: shuffledOptions
   }
 }
 
@@ -127,12 +123,12 @@ const genQuestionTypeTwo = async (correctAnswer) => {
   return new Promise((resolve) => {
     Promise.all([fetchImage(correctAnswer), fetchRandomImage()]).then(([correctImage, randomImage]) => {
       const filterRandom = randomImage.filter((image) => !image.includes(correctAnswer))
+      const shuffledOptions = shuffleArray([correctImage, filterRandom[0], filterRandom[1]])
       resolve({
         type: 2,
         question: correctAnswer,
-        option1: correctImage,
-        option2: filterRandom[0],
-        option3: filterRandom[1]
+        correctAnswer: correctImage,
+        options: shuffledOptions
       })
     })
   })

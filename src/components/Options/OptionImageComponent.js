@@ -13,10 +13,10 @@ class OptionImageComponent extends Component{
         }
         
         return(
-                <div onClick={this.props.onClick} className="optionImageComponent__image"> 
-                    <img src={this.props.breed} alt="breed-option"></img>
-                    <span className="index-images">{this.props.index+1}</span>
-                </div>
+            <div onClick={this.props.onClick} className={style}> 
+                <img src={this.props.breed} alt="breed-option"></img>
+                <span className="index-images">{this.props.index+1}</span>
+            </div>
         )
     }
 }
