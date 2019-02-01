@@ -11,49 +11,50 @@ import { addBreedToHistory } from '../../actions/questions'
 
 
 class OptionContainer extends Component{
-
-    state = {
-        current: {}
-    }
+    //state = {
+    //   current: {}
+    //}
 
 checkAnswer = (value) =>{
-  
     const { correctAnswer, question } = this.props.currentQuestion;
-
-  // REMOVE BREED FROM BREED ARRAY
+    // Adds the current breed to the history so we can know that the hint of this breed must not be displayed again
     if (this.props.currentQuestion.type===1){
        this.props.addBreedToHistory(correctAnswer)
     } else {
         this.props.addBreedToHistory(question)
     }
 
-		if( value !== correctAnswer) {
-
-            if(this.props.currentQuestion.type === 2) {
-                this.props.showAlert("fas fa-times-circle",`Wrong!, the correct answer is:`,"Next Question",this.props.nextQuestion,true, true, correctAnswer)
-            } else {
-                this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${correctAnswer}.`,"Next Question",this.props.nextQuestion,true)
-            }
-
-            this.props.loseCounterUp();
-            this.props.resetCounter()
-
-		}   else {
+    // GAME LOGIC
+    
+	if( value !== correctAnswer) {
+        if(this.props.currentQuestion.type === 2) {
+            // WRONG ANSWER QUESTION TYPE 2
+            this.props.showAlert("fas fa-times-circle",`Wrong!, the correct answer is:`,"Next Question",this.props.nextQuestion,true, true, correctAnswer)
+        }else{
+            // WRONG ANSWER QUESTION TYPE 1
+            this.props.showAlert("fas fa-times-circle",`That's not the correct answer, the correct answer is ${correctAnswer}.`,"Next Question",this.props.nextQuestion,true)
+        }
+        this.props.loseCounterUp();
+        this.props.resetCounter()
+        }else{
+            // LEVEL UP
             if( this.props.gameStat.counter+1 === 3){
                 this.props.showAlert("fas fa-arrow-circle-up",`Level:${this.props.gameStat.level+1}`,"Next Level",this.levelUp,true,true)
             } else {
-                    this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
-                    this.props.scoreUp();
-                    this.props.counterUp();
+                // CORRECT ANSWER
+                this.props.showAlert("fas fa-check-circle","Well Done","Next Question",this.props.nextQuestion,true,true)
+                this.props.scoreUp();
+                this.props.counterUp();
 			}
-		}
+        }
+        // GAME OVER
 		if (this.props.questionList.length === 0){
-				this.props.showAlert("fas fa-skull-crossbones","GAME OVER!","Restart Game",this.newGame,true,false)
+			this.props.showAlert("fas fa-skull-crossbones","GAME OVER!","Restart Game",this.newGame,true,false)
 		}
 	}
-
-
-	newGame = () => {
+    
+    // RESET STATS AND STATE
+    newGame = () => {
 		this.props.resetGameStats()
 		this.props.emptyQuestionList()
 		this.props.genQuestionMix(1, 25)
@@ -69,12 +70,6 @@ checkAnswer = (value) =>{
 
     componentDidMount() {
         this.setState({current: this.props.currentQuestion})
-    }
-    
-
-
-    componentWillUpdate() {
-
     }
   
     render(){ 
@@ -98,7 +93,7 @@ checkAnswer = (value) =>{
             }
 
         if (currentQuestion.type === 1){
-            // HINT LOGIC
+            // HINT LOGIC TYPE 1
             if (this.props.breeds.indexOf(correctAnswer)>-1){
                 hint = false
             }else{
@@ -113,6 +108,7 @@ checkAnswer = (value) =>{
             )
         }else {
 
+            // HINT LOGIC TYPE 2
             if (this.props.breeds.indexOf(this.props.currentQuestion.question) > -1){
                 hint = false
             }else{
@@ -129,12 +125,7 @@ checkAnswer = (value) =>{
     } 
 }
 
-        
-
-
-
 const mapStateToProps = (state) => {
-
     return {
         breeds : state.questions.breeds,
         currentQuestion : state.questions.currentQuestion,
