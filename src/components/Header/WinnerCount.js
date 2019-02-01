@@ -1,37 +1,12 @@
 import React from 'react'
+import Repeat from 'react-repeat-component';
 
 export default (props) => {
   return (
-    <div >
-      { displayFires(props.total) }
+    <div className='winner-counter'>
+      <Repeat times={props.total}>
+      {(i) => <i key={i} style={{backgroundColor: 'transparent'}} class="fas fa-fire"></i>}
+      </Repeat>
     </div>
   )
-}
-
-const displayFires = (number) => {
-  switch(number) {
-    case 1:
-    return(
-      <div className='winner-counter'>
-        <i class="fas fa-fire"></i>
-      </div>
-    )
-    case 2:
-    return(
-      <div className='winner-counter'>
-        <i class="fas fa-fire"></i>
-        <i class="fas fa-fire"></i>
-      </div>
-    )
-    case 3: 
-      return (
-        <div className='winner-counter'>
-          <i class="fas fa-fire"></i>
-          <i class="fas fa-fire"></i>
-          <i class="fas fa-fire"></i>
-        </div>
-      )
-    default:
-    return <div className='winner-counter'></div>
-  }
 }
