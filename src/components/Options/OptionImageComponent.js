@@ -5,9 +5,6 @@ import './OptionContainer.css'
 class OptionImageComponent extends Component{
     render(){
         let style = ""
-
-        console.log(this.props.correct, 'CORRECT')
-
         if((this.props.correct===this.props.breed) && (this.props.hint)){
             style = "optionImageComponent__image image__hint"
         }else{

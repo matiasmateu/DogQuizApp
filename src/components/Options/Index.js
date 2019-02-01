@@ -5,7 +5,6 @@ import { resetCounter, scoreUp, counterUp, levelUp, loseCounterUp, resetGameStat
 import { genQuestionMix, nextQuestion, emptyQuestionList } from '../../actions/questions'
 import {showAlert} from '../../actions/message'
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import shuffle from '../../tools/ArrayShuffle'
 import OptionImageComponent from './OptionImageComponent';
 import './OptionContainer.css'
 import { addBreedToHistory } from '../../actions/questions'
@@ -75,30 +74,22 @@ checkAnswer = (value) =>{
 
 
     componentWillUpdate() {
-        console.log('UPDATING....')
+
     }
   
     render(){ 
-       // if(this.props.currentQuestion) {}
- 
         let currentQuestion = this.props.currentQuestion
-        const { options, correctAnswer, question } = currentQuestion
-
+        const { options, correctAnswer } = currentQuestion
         let hint = false
-        
         const keyboardEvent = (event) => {
-                // console.log(event)
                 switch(event) {
                     case "1":
-                    // console.log(options[0])
                       this.checkAnswer(options[0])
                       break;
                     case "2":
-                    // console.log(options[1])
                       this.checkAnswer(options[1])
                       break;
                     case "3":
-                    // console.log(options[2])
                      this.checkAnswer(options[2])
                      break;
                     default:
@@ -113,8 +104,6 @@ checkAnswer = (value) =>{
             }else{
                 hint = true
             }
-
-            console.log(hint, 'HINT')
 
             return (  
                 <div className="optionsContainer">
@@ -133,7 +122,7 @@ checkAnswer = (value) =>{
          return (  
             <div className="optionImageComponent">
                 <KeyboardEventHandler handleKeys={['1', '2', '3']} onKeyEvent={(key, e) => keyboardEvent(key)} />
-                {options.map((option,i) => <OptionImageComponent correct={correctAnswer}  onClick={() => {this.checkAnswer(option)}} index={i} breed={option} hint={hint}/>)} 
+                {options.map((option,i) => <OptionImageComponent correct={correctAnswer}  key={option} onClick={() => {this.checkAnswer(option)}} index={i} breed={option} hint={hint}/>)} 
             </div>
         )
          }
