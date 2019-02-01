@@ -4,7 +4,6 @@ import {
   SET_QUESTIONS,
   NEXT_QUESTION,
   EMPTY_LIST,
-  UPDATE_BREEDS,
   ADD_BREED
 } from '../actions/questions'
 
