@@ -71,8 +71,6 @@ const fetchBreeds = async (level) => {
  */
 export const genQuestionMix = (level, maxQuestions) => {
 
-  const maxQuestion = 25;
-
   return async (dispatch) => {
 
     fetchBreeds(level).then(async breeds => {
@@ -83,7 +81,7 @@ export const genQuestionMix = (level, maxQuestions) => {
       let questionMix = [];
 
       // Fetching a total of questions: maxQuestion
-      for(let tot = 0; tot < maxQuestion; tot++) {
+      for(let tot = 0; tot < maxQuestions; tot++) {
         const correctAnswer = shuffleArray(breeds)[0]
         const wrongAnswers = breeds.filter((breed) => breed !== correctAnswer)
 
