@@ -32,13 +32,13 @@
     grid-template-columns: 1fr 1fr 1fr
 }
 
-@media screen and (max-width: 759px) {
+@media only screen and (max-width: 759px) {
     .optionImageComponent__image {
         height: 230px;   
     }
 }
 
-@media screen and (max-width: 450px) {
+@media only screen and (max-width: 450px) {
     .optionImageComponent {
         grid-template-columns: 1fr;
         text-align: center;
